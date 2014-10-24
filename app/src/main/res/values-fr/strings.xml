@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="welcome">Bienvenue</string>
-    <string name="welcome_intro">Bienvenue dans Cabinet ! Cabinet est un gestionnaire de fichier simpliste conçu pour être esthétiquement
+    <string name="welcome_intro">Bienvenue dans Cabinet ! Cabinet est un gestionnaire de fichiers simpliste conçu pour être esthétiquement
  agréable, et fonctionner juste comme il se doit.\n\n Jetez un œil à ce fichier :</string>
     <string name="welcome_conclusion">Essayez d\'appuyer sur l\'aperçu ou l\'icône "...". Appuyer sur l\'aperçu sélectionne le fichier pour des actions groupées, ce qui est également possible en restant appuyé sur le fichier. L\'icône "..." ouvre un menu pour traiter le fichier individuellement.\n\nCabinet
  a d\'autres fonctionnalités comme l\'accès à un serveur distant via SFTP, que vous trouverez dans l\'application. Merci d\'utiliser Cabinet !</string>
@@ -57,7 +57,7 @@
     <string name="sort_size_lowhigh">Taille, croissant</string>
     <string name="sort_size_highlow">Taille, décroissant</string>
     <string name="new_remote_connection">Nouvelle connexion à distance</string>
-    <string name="network_service_label">Service Réseau Cabinet</string>
+    <string name="network_service_label">Service réseau Cabinet</string>
     <string name="connection_notification_content">Connecté à %1$s</string>
     <string name="cabinet_sftp">SFTP Cabinet</string>
     <string name="disconnect">Déconnexion</string>
@@ -168,11 +168,11 @@
     <string name="archives">Archives</string>
     <string name="extension">Extension</string>
     <string name="no_files_filter">Aucun fichier pour le filtre: %1$s</string>
-    <string name="superuser_not_available">Superutilisateur non disponible</string>
+    <string name="superuser_not_available">SuperUtilisateur non disponible</string>
     <string name="filter_active">Filtre activé: %1$s</string>
     <string name="dark_theme">Thème foncé</string>
     <string name="dark_theme_description">Cabinet des couleurs plus foncées.</string>
-    <string name="true_black">Vrai Noir</string>
+    <string name="true_black">Vrai noir</string>
     <string name="true_black_description">Cabinet le noir pur pour écrans AMOLED.</string>
     <string name="sdcard">Carte SD</string>
 </resources>
