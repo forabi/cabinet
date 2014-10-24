@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.util.Log;
 
 import com.afollestad.cabinet.R;
-import com.afollestad.cabinet.file.LocalFile;
 import com.afollestad.cabinet.file.base.File;
 import com.afollestad.cabinet.fragments.DirectoryFragment;
 import com.afollestad.cabinet.utils.Utils;
@@ -21,7 +20,7 @@ public class Unzipper {
 
     private static ProgressDialog mDialog;
 
-    private static void unzip(final DirectoryFragment context, final LocalFile zipFile) {
+    private static void unzip(final DirectoryFragment context, final File zipFile) {
         final String outputFolder = context.getDirectory().getPath() + java.io.File.separator + zipFile.getNameNoExtension();
         log("Output folder: " + outputFolder);
         byte[] buffer = new byte[1024];
@@ -77,7 +76,7 @@ public class Unzipper {
             public void run() {
                 try {
                     for (File fi : files) {
-                        unzip(context, (LocalFile) fi);
+                        unzip(context, fi);
                         if (mDialog == null || !mDialog.isShowing()) {
                             // Cancelled
                             break;
