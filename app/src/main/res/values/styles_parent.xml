@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="_LightUIParent" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="CabinetParent" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="list_selector">@drawable/list_selector</item>
         <item name="list_selector_lighter">@drawable/list_selector_lighter</item>
-    </style>
 
-    <style name="CabinetParent" parent="@style/_LightUIParent">
         <item name="title_text">@android:color/black</item>
         <item name="body_text">#303030</item>
         <item name="drawer_background">@color/drawer_background</item>
         <item name="overflow">@drawable/ic_overflow_dark</item>
         <item name="menu_selector">@drawable/menu_selector</item>
-        <item name="list_selector">@drawable/list_selector</item>
-        <item name="list_selector_lighter">@drawable/list_selector_lighter</item>
         <item name="empty_image">@drawable/ic_empty_image</item>
         <item name="empty_image_error">@drawable/ic_empty_error</item>
         <item name="empty_text">@color/empty_text</item>
@@ -45,22 +41,16 @@
         <item name="ic_folder_hidden">@drawable/ic_folder_hidden</item>
     </style>
 
-
-    <style name="_DarkUIParent" parent="Theme.AppCompat">
+    <style name="CabinetDarkParent" parent="Theme.AppCompat">
+        <item name="android:windowBackground">@drawable/dark</item>
         <item name="list_selector">@drawable/list_selector_dark</item>
         <item name="list_selector_lighter">@drawable/list_selector_lighter_dark</item>
-    </style>
-
-    <style name="CabinetDarkParent" parent="@style/_DarkUIParent">
-        <item name="android:windowBackground">@drawable/dark</item>
 
         <item name="title_text">@android:color/white</item>
         <item name="body_text">#EEEEEE</item>
         <item name="drawer_background">@color/dark_background</item>
         <item name="overflow">@drawable/ic_overflow</item>
         <item name="menu_selector">@drawable/menu_selector_dark</item>
-        <item name="list_selector">@drawable/list_selector_dark</item>
-        <item name="list_selector_lighter">@drawable/list_selector_lighter_dark</item>
         <item name="empty_image">@drawable/ic_empty_image_light</item>
         <item name="empty_image_error">@drawable/ic_empty_error_light</item>
         <item name="empty_text">@color/empty_text_dark</item>
