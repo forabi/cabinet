@@ -648,6 +648,10 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
         }
     }
 
+    public FileAdapter getAdapter() {
+        return mAdapter;
+    }
+
     public void reload() {
         final View v = getView();
         if (getActivity() == null || v == null) {
@@ -964,9 +968,9 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
                         final File newFile = file.isRemote() ?
                                 new CloudFile(getActivity(), (CloudFile) file.getParent(), text, file.isDirectory()) :
                                 new LocalFile(getActivity(), file.getParent(), text);
-                        file.rename(newFile, new SftpClient.CompletionCallback() {
+                        file.rename(newFile, new SftpClient.FileCallback() {
                             @Override
-                            public void onComplete() {
+                            public void onComplete(File newFile) {
                                 reload();
                                 if (((DrawerActivity) getActivity()).getCab() != null &&
                                         ((DrawerActivity) getActivity()).getCab() instanceof BaseFileCab) {

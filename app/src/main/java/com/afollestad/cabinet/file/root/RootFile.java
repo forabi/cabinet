@@ -81,7 +81,7 @@ public class RootFile extends File {
     }
 
     @Override
-    public void rename(File newFile, final SftpClient.CompletionCallback callback) {
+    public void rename(File newFile, final SftpClient.FileCallback callback) {
         Utils.checkDuplicates(getContext(), newFile, new Utils.DuplicateCheckResult() {
             @Override
             public void onResult(final File newFile) {
@@ -94,7 +94,7 @@ public class RootFile extends File {
                                 @Override
                                 public void run() {
                                     setPath(newFile.getPath());
-                                    callback.onComplete();
+                                    callback.onComplete(newFile);
                                     notifyMediaScannerService(newFile);
                                 }
                             });

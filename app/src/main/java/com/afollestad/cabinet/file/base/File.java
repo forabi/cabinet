@@ -177,7 +177,7 @@ public abstract class File implements Serializable {
 
     public abstract void mkdir(SftpClient.CompletionCallback callback);
 
-    public abstract void rename(File newFile, SftpClient.CompletionCallback callback);
+    public abstract void rename(File newFile, SftpClient.FileCallback callback);
 
     public abstract void copy(File dest, SftpClient.FileCallback callback);
 

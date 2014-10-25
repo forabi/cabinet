@@ -94,7 +94,7 @@ public class LocalFile extends File {
     }
 
     @Override
-    public void rename(final File newFile, final SftpClient.CompletionCallback callback) {
+    public void rename(final File newFile, final SftpClient.FileCallback callback) {
         getContext().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -115,7 +115,7 @@ public class LocalFile extends File {
                                             public void run() {
                                                 setPath(newFile.getPath());
                                                 uploadProgress.dismiss();
-                                                callback.onComplete();
+                                                callback.onComplete(newFile);
                                             }
                                         });
                                     } catch (final Exception e) {
@@ -159,7 +159,7 @@ public class LocalFile extends File {
                                                 @Override
                                                 public void run() {
                                                     setPath(newFile.getPath());
-                                                    callback.onComplete();
+                                                    callback.onComplete(newFile);
                                                     notifyMediaScannerService(newFile);
                                                 }
                                             });
@@ -180,7 +180,7 @@ public class LocalFile extends File {
                                     @Override
                                     public void run() {
                                         setPath(newFile.getPath());
-                                        callback.onComplete();
+                                        callback.onComplete(newFile);
                                         notifyMediaScannerService(newFile);
                                     }
                                 });
