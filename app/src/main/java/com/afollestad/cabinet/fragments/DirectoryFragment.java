@@ -14,7 +14,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.Html;
@@ -493,7 +493,8 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
             }
         }));
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),
+                getResources().getInteger(R.integer.grid_columns)));
         mAdapter = new FileAdapter(getActivity(), this, this, this, mQuery != null);
         mRecyclerView.setAdapter(mAdapter);
 
