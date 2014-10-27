@@ -21,6 +21,11 @@ import java.util.List;
 
 public class CloudFile extends File {
 
+    public CloudFile(CloudFile remote, java.io.File copy) {
+        super(remote.getContext(), copy.getAbsolutePath());
+        mRemote = remote.getRemote();
+    }
+
     public CloudFile(Activity context, String path, Remote remote) {
         super(context, path);
         mRemote = remote;

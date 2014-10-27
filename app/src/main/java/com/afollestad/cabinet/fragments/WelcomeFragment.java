@@ -85,7 +85,7 @@ public class WelcomeFragment extends Fragment {
         });
 
         TextView title = (TextView) fileCard.findViewById(android.R.id.title);
-        title.setText(R.string.file_sub_title);
+        title.setText(R.string.file_stub_title);
         title.setTextColor(getResources().getColor(R.color.accent_color));
 
         ((TextView) fileCard.findViewById(android.R.id.content)).setText(R.string.file_stub_size);

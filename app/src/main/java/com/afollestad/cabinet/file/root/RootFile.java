@@ -299,7 +299,7 @@ public class RootFile extends File {
         }
     }
 
-    private List<String> runAsRoot(String command) throws Exception {
+    public List<String> runAsRoot(String command) throws Exception {
         Log.v("Cabinet-SU", command);
         boolean suAvailable = Shell.SU.available();
         if (!suAvailable)
