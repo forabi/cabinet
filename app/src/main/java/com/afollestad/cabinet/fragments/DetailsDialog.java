@@ -91,7 +91,6 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
                 otherR.setEnabled(false);
                 otherW.setEnabled(false);
                 otherX.setEnabled(false);
-                permissionsString = getString(R.string.loading);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -167,7 +166,7 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
 
     private void invalidatePermissions(boolean reload) {
         if (reload) {
-            permissionsString = getString(R.string.unavailable);
+            permissionsString = getString(R.string.loading);
             try {
                 final List<String> results = RootFile.runAsRoot(getActivity(), "ls -l \"" + file.getPath() + "\"");
                 if (results.size() > 0 && getActivity() != null) {
@@ -175,6 +174,7 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
                         @Override
                         public void run() {
                             permissionsString = Perm.parse(results.get(0), DetailsDialog.this);
+                            invalidatePermissions(false);
                         }
                     });
                 }
