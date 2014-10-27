@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -20,6 +19,7 @@ import com.afollestad.cabinet.file.base.File;
 import com.afollestad.cabinet.file.root.RootFile;
 import com.afollestad.cabinet.utils.Perm;
 import com.afollestad.cabinet.utils.TimeUtils;
+import com.afollestad.cabinet.utils.Utils;
 
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -219,7 +219,8 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
             @Override
             public void onComplete(boolean result, String error) {
                 mDialog.dismiss();
-                Log.v("DetailsDialog", result + ": " + error);
+                if (!result)
+                    Utils.showErrorDialog(getActivity(), error);
             }
         });
     }
