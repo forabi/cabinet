@@ -24,6 +24,8 @@ import com.afollestad.cabinet.utils.TimeUtils;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import eu.chainfire.libsuperuser.Shell;
+
 public class DetailsDialog extends DialogFragment implements CompoundButton.OnCheckedChangeListener {
 
     public DetailsDialog() {
@@ -91,31 +93,37 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
                 otherR.setEnabled(false);
                 otherW.setEnabled(false);
                 otherX.setEnabled(false);
-                permissionsString = getString(R.string.loading);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        invalidatePermissions(true);
-                        final Spanned newBody = getBody(false);
-                        if (getActivity() == null) return;
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ownerR.setEnabled(true);
-                                ownerW.setEnabled(true);
-                                ownerX.setEnabled(true);
-                                groupR.setEnabled(true);
-                                groupW.setEnabled(true);
-                                groupX.setEnabled(true);
-                                otherR.setEnabled(true);
-                                otherW.setEnabled(true);
-                                otherX.setEnabled(true);
-                                body.setText(newBody);
-                                invalidatePermissions(false);
-                            }
-                        });
-                    }
-                }).start();
+                if (!Shell.SU.available()) {
+                    permissionsString = getString(R.string.unavailable);
+                    if (getView() != null)
+                        getView().findViewById(R.id.permissionsGroup).setVisibility(View.GONE);
+                } else {
+                    permissionsString = getString(R.string.loading);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            invalidatePermissions(true);
+                            final Spanned newBody = getBody(false);
+                            if (getActivity() == null) return;
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ownerR.setEnabled(true);
+                                    ownerW.setEnabled(true);
+                                    ownerX.setEnabled(true);
+                                    groupR.setEnabled(true);
+                                    groupW.setEnabled(true);
+                                    groupX.setEnabled(true);
+                                    otherR.setEnabled(true);
+                                    otherW.setEnabled(true);
+                                    otherX.setEnabled(true);
+                                    body.setText(newBody);
+                                    invalidatePermissions(false);
+                                }
+                            });
+                        }
+                    }).start();
+                }
             }
             content = getString(R.string.details_body_file,
                     file.getName(), file.getPath(), file.getSizeString(), TimeUtils.toStringLong(cal), permissionsString);
