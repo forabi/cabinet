@@ -14,6 +14,7 @@ import com.afollestad.cabinet.R;
 import com.afollestad.cabinet.cab.base.BaseFileCab;
 import com.afollestad.cabinet.file.base.File;
 import com.afollestad.cabinet.sftp.SftpClient;
+import com.afollestad.cabinet.utils.Pins;
 import com.afollestad.cabinet.utils.Utils;
 import com.afollestad.cabinet.zip.Unzipper;
 import com.afollestad.cabinet.zip.Zipper;
@@ -63,16 +64,24 @@ public class MainCab extends BaseFileCab {
     public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
         boolean showUnzip = true;
         boolean showShare = true;
+        boolean showPin = true;
         for (File fi : getFiles()) {
             if (fi.isDirectory()) {
                 showShare = false;
                 showUnzip = false;
-            } else if (!fi.getExtension().equals("zip")) {
-                showUnzip = false;
+                if (showPin) {
+                    showPin = !Pins.contains(getContext(), new Pins.Item(fi));
+                }
+            } else {
+                showPin = false;
+                if (!fi.getExtension().equals("zip")) {
+                    showUnzip = false;
+                }
             }
         }
         menu.findItem(R.id.zip).setTitle(showUnzip ? R.string.unzip : R.string.zip);
         menu.findItem(R.id.share).setVisible(showShare);
+        menu.findItem(R.id.pin).setVisible(showPin);
         return super.onPrepareActionMode(actionMode, menu);
     }
 
@@ -172,6 +181,12 @@ public class MainCab extends BaseFileCab {
                 });
             }
             return true;
+        } else if (menuItem.getItemId() == R.id.pin) {
+            for (File fi : getFiles()) {
+                Pins.add(getContext(), new Pins.Item(fi));
+            }
+            getContext().reloadNavDrawer(true);
+            finish();
         }
         return false;
     }
