@@ -17,10 +17,12 @@ import android.widget.TextView;
 
 import com.afollestad.cabinet.R;
 import com.afollestad.cabinet.file.base.File;
+import com.afollestad.cabinet.file.root.RootFile;
 import com.afollestad.cabinet.utils.Perm;
 import com.afollestad.cabinet.utils.TimeUtils;
 
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class DetailsDialog extends DialogFragment implements CompoundButton.OnCheckedChangeListener {
 
@@ -39,14 +41,16 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
     private File file;
 
     private Spanned getBody(boolean loadDirContents) {
+        if (getActivity() == null || !isAdded()) return null;
         String content;
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTimeInMillis(file.lastModified());
         if (file.isDirectory()) {
             String size = getString(R.string.unavailable);
             if (!file.isRemote()) {
-                if (loadDirContents) size = file.getSizeString();
-                else {
+                if (loadDirContents) {
+                    size = file.getSizeString();
+                } else {
                     size = getString(R.string.loading);
                     new Thread(new Runnable() {
                         @Override
@@ -63,14 +67,46 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
                     }).start();
                 }
             }
-            if (getActivity() == null) return null;
             content = getString(R.string.details_body_dir,
                     file.getName(), file.getPath(), size, TimeUtils.toStringLong(cal));
         } else {
-            if (getActivity() == null) return null;
+            if (permissionsString == null) {
+                ownerR.setEnabled(false);
+                ownerW.setEnabled(false);
+                ownerX.setEnabled(false);
+                groupR.setEnabled(false);
+                groupW.setEnabled(false);
+                groupX.setEnabled(false);
+                otherR.setEnabled(false);
+                otherW.setEnabled(false);
+                otherX.setEnabled(false);
+                permissionsString = getString(R.string.loading);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        invalidatePermissions(true);
+                        final Spanned newBody = getBody(false);
+                        if (getActivity() == null) return;
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ownerR.setEnabled(true);
+                                ownerW.setEnabled(true);
+                                ownerX.setEnabled(true);
+                                groupR.setEnabled(true);
+                                groupW.setEnabled(true);
+                                groupX.setEnabled(true);
+                                otherR.setEnabled(true);
+                                otherW.setEnabled(true);
+                                otherX.setEnabled(true);
+                                body.setText(newBody);
+                            }
+                        });
+                    }
+                }).start();
+            }
             content = getString(R.string.details_body_file,
-                    file.getName(), file.getPath(), file.getSizeString(), TimeUtils.toStringLong(cal),
-                    owner + "" + group + "" + other);
+                    file.getName(), file.getPath(), file.getSizeString(), TimeUtils.toStringLong(cal), permissionsString);
         }
         return Html.fromHtml(content);
     }
@@ -84,9 +120,8 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
     private CheckBox otherR;
     private CheckBox otherW;
     private CheckBox otherX;
-    private int owner;
-    private int group;
-    private int other;
+    private String permissionsString;
+    private String initialPermission;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -119,6 +154,7 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
         title.setText(R.string.details);
         body = (TextView) rootView.findViewById(R.id.body);
         body.setText(getBody(false));
+
         return new AlertDialog.Builder(getActivity())
                 .setView(rootView)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -130,28 +166,42 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
                 }).create();
     }
 
-    private void invalidatePermissions() {
-        owner = 0;
-        if (ownerR.isChecked()) owner += Perm.READ;
-        if (ownerW.isChecked()) owner += Perm.WRITE;
-        if (ownerX.isChecked()) owner += Perm.EXECUTE;
-        group = 0;
-        if (groupR.isChecked()) group += Perm.READ;
-        if (groupW.isChecked()) group += Perm.WRITE;
-        if (groupX.isChecked()) group += Perm.EXECUTE;
-        other = 0;
-        if (otherR.isChecked()) other += Perm.READ;
-        if (otherW.isChecked()) other += Perm.WRITE;
-        if (otherX.isChecked()) other += Perm.EXECUTE;
+    private void invalidatePermissions(boolean reload) {
+        if (reload) {
+            permissionsString = getString(R.string.unavailable);
+            try {
+                List<String> results = RootFile.runAsRoot(getActivity(), "ls -l \"" + file.getPath() + "\"");
+                if (results.size() > 0)
+                    permissionsString = Perm.parse(results.get(0));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            initialPermission = permissionsString;
+        } else {
+            int owner = 0;
+            if (ownerR.isChecked()) owner += Perm.READ;
+            if (ownerW.isChecked()) owner += Perm.WRITE;
+            if (ownerX.isChecked()) owner += Perm.EXECUTE;
+            int group = 0;
+            if (groupR.isChecked()) group += Perm.READ;
+            if (groupW.isChecked()) group += Perm.WRITE;
+            if (groupX.isChecked()) group += Perm.EXECUTE;
+            int other = 0;
+            if (otherR.isChecked()) other += Perm.READ;
+            if (otherW.isChecked()) other += Perm.WRITE;
+            if (otherX.isChecked()) other += Perm.EXECUTE;
+            permissionsString = owner + "" + group + "" + other;
+        }
     }
 
     private void applyPermissionsIfNecessary() {
+        if (permissionsString.equals(initialPermission)) return;
         final ProgressDialog mDialog = new ProgressDialog(getActivity());
         mDialog.setCancelable(false);
         mDialog.setMessage(getString(R.string.applying_permissions));
         mDialog.setIndeterminate(true);
         mDialog.show();
-        Perm.chmod(file, owner, group, other, new Perm.Callback() {
+        Perm.chmod(file, permissionsString, new Perm.Callback() {
             @Override
             public void onComplete(boolean result, String error) {
                 mDialog.dismiss();
@@ -162,7 +212,7 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        invalidatePermissions();
+        invalidatePermissions(false);
         body.setText(getBody(false));
     }
 }

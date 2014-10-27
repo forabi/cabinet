@@ -1,6 +1,7 @@
 package com.afollestad.cabinet.file.root;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 
 import com.afollestad.cabinet.R;
@@ -300,10 +301,14 @@ public class RootFile extends File {
     }
 
     public List<String> runAsRoot(String command) throws Exception {
+        return runAsRoot(getContext(), command);
+    }
+
+    public static List<String> runAsRoot(Context context, String command) throws Exception {
         Log.v("Cabinet-SU", command);
         boolean suAvailable = Shell.SU.available();
         if (!suAvailable)
-            throw new Exception(getContext().getString(R.string.superuser_not_available));
+            throw new Exception(context.getString(R.string.superuser_not_available));
         return Shell.SU.run(new String[]{
                 "mount -o remount,rw /",
                 command

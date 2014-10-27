@@ -28,9 +28,8 @@ public class Perm {
         Log.d("Perm", message);
     }
 
-    public static void chmod(final File file, int owner, int group, int other, final Callback callback) {
-        final String perm = owner + "" + group + "" + other;
-        final String cmd = "chmod " + perm + " \"" + file.getPath() + "\"";
+    public static void chmod(final File file, String permissionsString, final Callback callback) {
+        final String cmd = "-c chmod " + permissionsString + " \"" + file.getPath() + "\"";
         final Handler mHandler = new Handler();
         new Thread(new Runnable() {
             @Override
@@ -67,6 +66,31 @@ public class Perm {
                 }
             }
         }).start();
+    }
+
+    public static String parse(String permLine) {
+        int owner = 0;
+        if (permLine.charAt(1) == 'r')
+            owner += READ;
+        if (permLine.charAt(2) == 'w')
+            owner += WRITE;
+        if (permLine.charAt(3) == 'x')
+            owner += EXECUTE;
+        int group = 0;
+        if (permLine.charAt(4) == 'r')
+            group += READ;
+        if (permLine.charAt(5) == 'w')
+            group += WRITE;
+        if (permLine.charAt(6) == 'x')
+            group += EXECUTE;
+        int world = 0;
+        if (permLine.charAt(7) == 'r')
+            world += READ;
+        if (permLine.charAt(8) == 'w')
+            world += WRITE;
+        if (permLine.charAt(9) == 'x')
+            world += EXECUTE;
+        return owner + "" + group + "" + world;
     }
 
     private static boolean exec(String command) {
