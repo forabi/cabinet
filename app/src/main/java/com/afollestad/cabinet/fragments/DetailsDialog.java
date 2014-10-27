@@ -196,7 +196,7 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
             if (otherW.isChecked()) other += Perm.WRITE;
             if (otherX.isChecked()) other += Perm.EXECUTE;
             permissionsString = owner + "" + group + "" + other;
-            body.setText(getBody(false));
+            body.setText(permissionsString);
         }
     }
 
