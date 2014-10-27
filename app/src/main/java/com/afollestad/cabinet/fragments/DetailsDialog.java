@@ -169,9 +169,15 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
         if (reload) {
             permissionsString = getString(R.string.unavailable);
             try {
-                List<String> results = RootFile.runAsRoot(getActivity(), "ls -l \"" + file.getPath() + "\"");
-                if (results.size() > 0)
-                    permissionsString = Perm.parse(results.get(0), this);
+                final List<String> results = RootFile.runAsRoot(getActivity(), "ls -l \"" + file.getPath() + "\"");
+                if (results.size() > 0 && getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            permissionsString = Perm.parse(results.get(0), DetailsDialog.this);
+                        }
+                    });
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
