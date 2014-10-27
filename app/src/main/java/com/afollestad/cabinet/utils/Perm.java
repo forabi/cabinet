@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.afollestad.cabinet.file.base.File;
 import com.afollestad.cabinet.file.root.RootFile;
+import com.afollestad.cabinet.fragments.DetailsDialog;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -68,28 +69,46 @@ public class Perm {
         }).start();
     }
 
-    public static String parse(String permLine) {
+    public static String parse(String permLine, DetailsDialog dialog) {
         int owner = 0;
-        if (permLine.charAt(1) == 'r')
+        if (permLine.charAt(1) == 'r') {
             owner += READ;
-        if (permLine.charAt(2) == 'w')
+            dialog.ownerR.setChecked(true);
+        }
+        if (permLine.charAt(2) == 'w') {
             owner += WRITE;
-        if (permLine.charAt(3) == 'x')
+            dialog.ownerW.setChecked(true);
+        }
+        if (permLine.charAt(3) == 'x') {
             owner += EXECUTE;
+            dialog.ownerX.setChecked(true);
+        }
         int group = 0;
-        if (permLine.charAt(4) == 'r')
+        if (permLine.charAt(4) == 'r') {
             group += READ;
-        if (permLine.charAt(5) == 'w')
+            dialog.groupR.setChecked(true);
+        }
+        if (permLine.charAt(5) == 'w') {
             group += WRITE;
-        if (permLine.charAt(6) == 'x')
+            dialog.groupW.setChecked(true);
+        }
+        if (permLine.charAt(6) == 'x') {
             group += EXECUTE;
+            dialog.groupX.setChecked(true);
+        }
         int world = 0;
-        if (permLine.charAt(7) == 'r')
+        if (permLine.charAt(7) == 'r') {
             world += READ;
-        if (permLine.charAt(8) == 'w')
+            dialog.otherR.setChecked(true);
+        }
+        if (permLine.charAt(8) == 'w') {
             world += WRITE;
-        if (permLine.charAt(9) == 'x')
+            dialog.otherW.setChecked(true);
+        }
+        if (permLine.charAt(9) == 'x') {
             world += EXECUTE;
+            dialog.otherX.setChecked(true);
+        }
         return owner + "" + group + "" + world;
     }
 

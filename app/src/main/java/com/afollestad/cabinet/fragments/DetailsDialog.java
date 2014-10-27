@@ -39,6 +39,17 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
 
     private TextView body;
     private File file;
+    public CheckBox ownerR;
+    public CheckBox ownerW;
+    public CheckBox ownerX;
+    public CheckBox groupR;
+    public CheckBox groupW;
+    public CheckBox groupX;
+    public CheckBox otherR;
+    public CheckBox otherW;
+    public CheckBox otherX;
+    public String permissionsString;
+    public String initialPermission;
 
     private Spanned getBody(boolean loadDirContents) {
         if (getActivity() == null || !isAdded()) return null;
@@ -111,18 +122,6 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
         return Html.fromHtml(content);
     }
 
-    private CheckBox ownerR;
-    private CheckBox ownerW;
-    private CheckBox ownerX;
-    private CheckBox groupR;
-    private CheckBox groupW;
-    private CheckBox groupX;
-    private CheckBox otherR;
-    private CheckBox otherW;
-    private CheckBox otherX;
-    private String permissionsString;
-    private String initialPermission;
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         file = (File) getArguments().getSerializable("file");
@@ -172,7 +171,7 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
             try {
                 List<String> results = RootFile.runAsRoot(getActivity(), "ls -l \"" + file.getPath() + "\"");
                 if (results.size() > 0)
-                    permissionsString = Perm.parse(results.get(0));
+                    permissionsString = Perm.parse(results.get(0), this);
             } catch (Exception e) {
                 e.printStackTrace();
             }
