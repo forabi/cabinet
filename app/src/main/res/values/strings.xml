@@ -283,5 +283,6 @@
     <string name="r" translatable="false">R</string>
     <string name="w" translatable="false">W</string>
     <string name="x" translatable="false">X</string>
+    <string name="applying_permissions">Applying permissions…</string>
 
 </resources>

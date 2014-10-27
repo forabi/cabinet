@@ -3,6 +3,7 @@ package com.afollestad.cabinet.fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Html;
@@ -145,9 +146,15 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
     }
 
     private void applyPermissionsIfNecessary() {
+        final ProgressDialog mDialog = new ProgressDialog(getActivity());
+        mDialog.setCancelable(false);
+        mDialog.setMessage(getString(R.string.applying_permissions));
+        mDialog.setIndeterminate(true);
+        mDialog.show();
         Perm.chmod(file, owner, group, other, new Perm.Callback() {
             @Override
             public void onComplete(boolean result, String error) {
+                mDialog.dismiss();
                 Log.v("DetailsDialog", result + ": " + error);
             }
         });

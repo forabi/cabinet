@@ -3,7 +3,6 @@ package com.afollestad.cabinet.utils;
 import android.os.Handler;
 import android.util.Log;
 
-import com.afollestad.cabinet.file.LocalFile;
 import com.afollestad.cabinet.file.base.File;
 import com.afollestad.cabinet.file.root.RootFile;
 
@@ -29,37 +28,9 @@ public class Perm {
         Log.d("Perm", message);
     }
 
-    private static File isSymlink(File file) throws IOException {
-        if (file.isRemote() || file.isRoot()) {
-            return file;
-        }
-        java.io.File canon;
-        if (file.getParent() == null) {
-            canon = file.toJavaFile();
-        } else {
-            java.io.File canonDir = file.toJavaFile().getParentFile().getCanonicalFile();
-            log(file.toJavaFile().getCanonicalPath());
-            log(canonDir.getAbsolutePath());
-            canon = new java.io.File(canonDir, file.getName());
-        }
-        if (!canon.getCanonicalFile().equals(canon.getAbsoluteFile())) {
-            return new LocalFile(file.getContext(), canon);
-        } else {
-            return file;
-        }
-    }
-
     public static void chmod(final File file, int owner, int group, int other, final Callback callback) {
-        String path;
-        try {
-            path = isSymlink(file).getPath();
-        } catch (IOException e) {
-            e.printStackTrace();
-            callback.onComplete(false, e.getMessage());
-            return;
-        }
         final String perm = owner + "" + group + "" + other;
-        final String cmd = "chmod " + perm + " " + path;
+        final String cmd = "chmod " + perm + " \"" + file.getPath() + "\"";
         final Handler mHandler = new Handler();
         new Thread(new Runnable() {
             @Override
