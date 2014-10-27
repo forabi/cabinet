@@ -196,6 +196,7 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
             if (otherW.isChecked()) other += Perm.WRITE;
             if (otherX.isChecked()) other += Perm.EXECUTE;
             permissionsString = owner + "" + group + "" + other;
+            body.setText(getBody(false));
         }
     }
 
@@ -218,6 +219,5 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         invalidatePermissions(false);
-        body.setText(getBody(false));
     }
 }
