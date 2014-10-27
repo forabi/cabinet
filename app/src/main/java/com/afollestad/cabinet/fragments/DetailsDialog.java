@@ -53,7 +53,7 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
     public String permissionsString;
     public String initialPermission;
 
-    private Spanned getBody(boolean loadDirContents) {
+    private Spanned getBody(boolean loadDirContents, final View view) {
         if (getActivity() == null) return null;
         String content;
         GregorianCalendar cal = new GregorianCalendar();
@@ -68,7 +68,7 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            final Spanned newBody = getBody(true);
+                            final Spanned newBody = getBody(true, null);
                             if (getActivity() == null) return;
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
@@ -94,16 +94,16 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
                 otherW.setEnabled(false);
                 otherX.setEnabled(false);
                 if (!Shell.SU.available()) {
-                    permissionsString = getString(R.string.unavailable);
-                    if (getView() != null)
-                        getView().findViewById(R.id.permissionsGroup).setVisibility(View.GONE);
+                    permissionsString = getString(R.string.superuser_not_available);
+                    if (view != null)
+                        view.findViewById(R.id.permissionsGroup).setVisibility(View.GONE);
                 } else {
                     permissionsString = getString(R.string.loading);
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             invalidatePermissions(true);
-                            final Spanned newBody = getBody(false);
+                            final Spanned newBody = getBody(false, view);
                             if (getActivity() == null) return;
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
@@ -151,7 +151,7 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
 
         title.setText(R.string.details);
         body = (TextView) rootView.findViewById(R.id.body);
-        body.setText(getBody(false));
+        body.setText(getBody(false, rootView));
 
         return new AlertDialog.Builder(getActivity())
                 .setView(rootView)
@@ -194,7 +194,7 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
             if (otherW.isChecked()) other += Perm.WRITE;
             if (otherX.isChecked()) other += Perm.EXECUTE;
             permissionsString = owner + "" + group + "" + other;
-            body.setText(getBody(false));
+            body.setText(getBody(false, getView()));
 
             ownerR.setOnCheckedChangeListener(this);
             ownerW.setOnCheckedChangeListener(this);
