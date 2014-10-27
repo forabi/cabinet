@@ -52,7 +52,7 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
     public String initialPermission;
 
     private Spanned getBody(boolean loadDirContents) {
-        if (getActivity() == null || !isAdded()) return null;
+        if (getActivity() == null) return null;
         String content;
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTimeInMillis(file.lastModified());
@@ -111,6 +111,7 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
                                 otherW.setEnabled(true);
                                 otherX.setEnabled(true);
                                 body.setText(newBody);
+                                invalidatePermissions(false);
                             }
                         });
                     }
@@ -140,16 +141,6 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
         otherW = (CheckBox) rootView.findViewById(R.id.otherW);
         otherX = (CheckBox) rootView.findViewById(R.id.otherX);
 
-        ownerR.setOnCheckedChangeListener(this);
-        ownerW.setOnCheckedChangeListener(this);
-        ownerX.setOnCheckedChangeListener(this);
-        groupR.setOnCheckedChangeListener(this);
-        groupW.setOnCheckedChangeListener(this);
-        groupX.setOnCheckedChangeListener(this);
-        otherR.setOnCheckedChangeListener(this);
-        otherW.setOnCheckedChangeListener(this);
-        otherX.setOnCheckedChangeListener(this);
-
         title.setText(R.string.details);
         body = (TextView) rootView.findViewById(R.id.body);
         body.setText(getBody(false));
@@ -174,7 +165,6 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
                         @Override
                         public void run() {
                             permissionsString = Perm.parse(results.get(0), DetailsDialog.this);
-                            invalidatePermissions(false);
                         }
                     });
                 }
@@ -196,7 +186,17 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
             if (otherW.isChecked()) other += Perm.WRITE;
             if (otherX.isChecked()) other += Perm.EXECUTE;
             permissionsString = owner + "" + group + "" + other;
-            body.setText(permissionsString);
+            body.setText(getBody(false));
+
+            ownerR.setOnCheckedChangeListener(this);
+            ownerW.setOnCheckedChangeListener(this);
+            ownerX.setOnCheckedChangeListener(this);
+            groupR.setOnCheckedChangeListener(this);
+            groupW.setOnCheckedChangeListener(this);
+            groupX.setOnCheckedChangeListener(this);
+            otherR.setOnCheckedChangeListener(this);
+            otherW.setOnCheckedChangeListener(this);
+            otherX.setOnCheckedChangeListener(this);
         }
     }
 
