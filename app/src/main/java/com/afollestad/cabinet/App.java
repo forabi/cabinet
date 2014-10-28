@@ -27,7 +27,6 @@ public class App extends Application {
         return new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
                 .cacheInMemory(true)
-                .cacheOnDisk(true)
                 .showImageForEmptyUri(fallback)
                 .showImageOnFail(fallback)
                 .cacheInMemory(true)
