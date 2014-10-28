@@ -41,4 +41,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:21.0.0'
     compile 'com.melnykov:floatingactionbutton:+'
     compile 'com.nostra13.universalimageloader:universal-image-loader:+'
+    compile 'com.readystatesoftware.systembartint:systembartint:+'
 }
