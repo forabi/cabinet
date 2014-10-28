@@ -1,24 +1,28 @@
-apply plugin: 'com.android.library'
+apply plugin: 'android-library'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion '21.0.0'
+    buildToolsVersion "21.0.2"
 
     defaultConfig {
-        applicationId "eu.chainfire.libsuperuser"
-        minSdkVersion 15
+        minSdkVersion 4
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
     }
-    buildTypes {
-        release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
         }
     }
-}
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    // Do not abort build if lint finds errors
+    lintOptions {
+        abortOnError false
+    }
 }
