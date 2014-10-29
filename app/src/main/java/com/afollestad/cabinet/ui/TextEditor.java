@@ -111,16 +111,28 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
                     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(mFile), "UTF-8"));
                     String line;
                     final StringBuilder text = new StringBuilder();
-                    while ((line = br.readLine()) != null) {
-                        text.append(line);
-                        text.append('\n');
+                    try {
+                        while ((line = br.readLine()) != null) {
+                            text.append(line);
+                            text.append('\n');
+                        }
+                    } catch (final OutOfMemoryError e) {
+                        e.printStackTrace();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Utils.showErrorDialog(TextEditor.this, e.getLocalizedMessage());
+                            }
+                        });
                     }
+                    br.close();
                     Log.v("TextEditor", "Setting contents to input area...");
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try {
                                 mOriginal = text.toString();
+                                text.setLength(0); // clear string builder to reduce memory usage
                                 mInput.setText(mOriginal);
                             } catch (OutOfMemoryError e) {
                                 Utils.showErrorDialog(TextEditor.this, e.getLocalizedMessage());
