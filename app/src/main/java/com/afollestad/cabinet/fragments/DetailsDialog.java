@@ -173,13 +173,13 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
                         @Override
                         public void run() {
                             permissionsString = Perm.parse(results.get(0), DetailsDialog.this);
+                            initialPermission = permissionsString;
                         }
                     });
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            initialPermission = permissionsString;
         } else {
             int owner = 0;
             if (ownerR.isChecked()) owner += Perm.READ;
@@ -209,7 +209,10 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
     }
 
     private void applyPermissionsIfNecessary() {
-        if (permissionsString.equals(initialPermission)) return;
+        if (permissionsString.length() != 3 || initialPermission.length() != 3 ||
+                permissionsString.equals(initialPermission) || !Shell.SU.available()) {
+            return;
+        }
         final ProgressDialog mDialog = new ProgressDialog(getActivity());
         mDialog.setCancelable(false);
         mDialog.setMessage(getString(R.string.applying_permissions));
