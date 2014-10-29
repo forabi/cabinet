@@ -209,8 +209,9 @@ public class DetailsDialog extends DialogFragment implements CompoundButton.OnCh
     }
 
     private void applyPermissionsIfNecessary() {
-        if (permissionsString.length() != 3 || initialPermission.length() != 3 ||
-                permissionsString.equals(initialPermission) || !Shell.SU.available()) {
+        if ((permissionsString == null || permissionsString.length() != 3) ||
+                (initialPermission == null || initialPermission.length() != 3) ||
+                (permissionsString != null && permissionsString.equals(initialPermission)) || !Shell.SU.available()) {
             return;
         }
         final ProgressDialog mDialog = new ProgressDialog(getActivity());
