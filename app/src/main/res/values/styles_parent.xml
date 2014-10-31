@@ -39,6 +39,8 @@
         <item name="ic_file_zip">@drawable/ic_file_zip</item>
         <item name="ic_folder">@drawable/ic_folder</item>
         <item name="ic_folder_hidden">@drawable/ic_folder_hidden</item>
+
+        <item name="android:textColorAlertDialogListItem">?body_text</item>
     </style>
 
     <style name="CabinetDarkParent" parent="Theme.AppCompat">
@@ -80,6 +82,8 @@
         <item name="ic_file_zip">@drawable/ic_file_zip_light</item>
         <item name="ic_folder">@drawable/ic_folder_light</item>
         <item name="ic_folder_hidden">@drawable/ic_folder_hidden_light</item>
+
+        <item name="android:textColorAlertDialogListItem">?body_text</item>
     </style>
 
     <style name="CabinetTrueBlackParent" parent="@style/CabinetDarkParent">
