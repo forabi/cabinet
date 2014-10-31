@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/file_item_spacing"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp"
     android:background="?list_selector"
     android:descendantFocusability="blocksDescendants">
 
@@ -73,8 +72,7 @@
             android:layout_centerVertical="true"
             android:padding="8dp"
             android:focusableInTouchMode="false"
-            android:focusable="false"
-            android:layout_marginRight="7dp" />
+            android:focusable="false" />
 
     </RelativeLayout>
 

@@ -5,6 +5,7 @@
     <attr name="body_text" format="color" />
     <attr name="drawer_background" format="color" />
     <attr name="empty_text" format="color" />
+    <attr name="inset_divider" format="color" />
 
     <attr name="menu_selector" format="reference" />
     <attr name="list_selector" format="reference" />

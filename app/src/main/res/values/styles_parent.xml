@@ -13,6 +13,7 @@
         <item name="empty_image">@drawable/ic_empty_image</item>
         <item name="empty_image_error">@drawable/ic_empty_error</item>
         <item name="empty_text">@color/empty_text</item>
+        <item name="inset_divider">@color/divider_black</item>
 
         <item name="colorPrimary">@color/cabinet_color</item>
         <item name="colorPrimaryDark">@color/cabinet_color_darker</item>
@@ -62,6 +63,7 @@
         <item name="empty_image">@drawable/ic_empty_image_light</item>
         <item name="empty_image_error">@drawable/ic_empty_error_light</item>
         <item name="empty_text">@color/empty_text_dark</item>
+        <item name="inset_divider">@color/divider_white</item>
 
         <item name="colorPrimary">@color/cabinet_color</item>
         <item name="colorPrimaryDark">@color/cabinet_color_darker</item>

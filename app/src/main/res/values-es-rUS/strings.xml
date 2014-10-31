@@ -14,8 +14,8 @@
     <string name="delete">Eliminar</string>
     <string name="paste">Pegar</string>
     <string name="share">Compartir</string>
-    <string name="zip">Comprimir</string>
-    <string name="unzip">Extraer</string>
+    <string name="zip">Zip</string>
+    <string name="unzip">Unzip</string>
     <string name="selectAll">Seleccionar todo</string>
     <string name="details">Detalles</string>
     <string name="no_files">No hay archivos</string>
@@ -24,7 +24,6 @@
     <string name="directory">Directorio</string>
     <string name="unknown">Desconocido</string>
     <string name="go_up">Subir</string>
-    <string name="press_back_to_exit">"Presiona otra vez para salir"</string>
     <string name="x_files">%1$d archivos</string>
     <string name="x_dirs">%1$d directorios</string>
     <string name="no_x_files">No %1$s archivos</string>
@@ -161,20 +160,20 @@
     <string name="unsupported_extension">Extension no soportada</string>
     <string name="unsupported_extension_desc">No puedes abrir este tipo de archivo con el editor de texto.</string>
     <string name="file_already_exists_warning">Advertencia: este archivo ya existe. El nuevo archivo aparecerá como un duplicado.</string>
-    <string name="auto_unzip_prompt">¿Extrar este archivo en el directorio actual?</string>
+    <string name="auto_unzip_prompt">¿Descomprimir el archivo en el directorio actual?</string>
     <string name="filter">Filtro</string>
     <string name="none">Ninguno</string>
     <string name="archives">Archivos</string>
     <string name="extension">Extensión</string>
     <string name="no_files_filter">No hay archivos para el filtro: %1$s</string>
-    <string name="superuser_not_available">Superusuario no disponible</string>
+    <string name="superuser_not_available">Superuser no disponible</string>
     <string name="filter_active">Filtro activo: %1$s</string>
     <string name="dark_theme">Tema Oscuro</string>
     <string name="dark_theme_description">Cabinet usará colores oscuros.</string>
     <string name="true_black">Negro Verdadero</string>
-    <string name="true_black_description">Cabinet usara negro puro para pantallas AMOLED.</string>
+    <string name="true_black_description">Cabinet usará negro puro para pantallas AMOLED.</string>
     <string name="sdcard">Tarjeta SD</string>
-    <string name="owner">Propietario</string>
+    <string name="owner">Dueño</string>
     <string name="group">Grupo</string>
     <string name="applying_permissions">Aplicando permisos...</string>
 </resources>

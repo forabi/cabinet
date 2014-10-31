@@ -42,7 +42,6 @@ public class DrawerActivity extends NetworkedActivity implements BillingProcesso
     }
 
     private BillingProcessor mBP; // used for donations
-    private boolean canExit; // flag used for press back twice to exit
     private BaseCab mCab; // the current contextual action bar, saves state throughout fragments
 
     public FloatingActionButton fab; // the floating blue add/paste button
@@ -262,7 +261,6 @@ public class DrawerActivity extends NetworkedActivity implements BillingProcesso
 
     public void switchDirectory(File to, boolean clearBackStack, boolean animate) {
         if (to == null) to = new LocalFile(this, Environment.getExternalStorageDirectory());
-        canExit = false;
         if (clearBackStack)
             getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         FragmentTransaction trans = getFragmentManager().beginTransaction();
@@ -300,17 +298,6 @@ public class DrawerActivity extends NetworkedActivity implements BillingProcesso
             return true;
         }
         return super.onKeyLongPress(keyCode, event);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() == 0) {
-            if (canExit) super.onBackPressed();
-            else {
-                canExit = true;
-                Toast.makeText(getApplicationContext(), R.string.press_back_to_exit, Toast.LENGTH_SHORT).show();
-            }
-        } else getFragmentManager().popBackStack();
     }
 
     /* Donation stuff via in app billing */

@@ -31,7 +31,6 @@
     <string name="directory">Directory</string>
     <string name="unknown">Unknown</string>
     <string name="go_up">Go Up</string>
-    <string name="press_back_to_exit">Press back again to exit…</string>
     <string name="x_files">%1$d files</string>
     <string name="x_dirs">%1$d directories</string>
     <string name="no_x_files">No %1$s files</string>

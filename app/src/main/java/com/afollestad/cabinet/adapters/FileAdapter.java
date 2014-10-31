@@ -194,7 +194,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FileViewHolder
         File file = mFiles.get(index);
         holder.view.setTag("0:" + index);
         holder.view.setOnClickListener(this);
-        holder.view.setOnLongClickListener(this);
+//        holder.view.setOnLongClickListener(this);
         setupTouchDelegate(mContext, holder.menu);
 
         if (file instanceof RootFile) {
