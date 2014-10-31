@@ -41,6 +41,12 @@
         <item name="ic_folder_hidden">@drawable/ic_folder_hidden</item>
 
         <item name="android:textColorAlertDialogListItem">?body_text</item>
+        <item name="textAppearanceLargePopupMenu">
+            @style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large
+        </item>
+        <item name="textAppearanceSmallPopupMenu">
+            @style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small
+        </item>
     </style>
 
     <style name="CabinetDarkParent" parent="Theme.AppCompat">
@@ -84,6 +90,12 @@
         <item name="ic_folder_hidden">@drawable/ic_folder_hidden_light</item>
 
         <item name="android:textColorAlertDialogListItem">?body_text</item>
+        <item name="textAppearanceLargePopupMenu">
+            @style/TextAppearance.AppCompat.Widget.PopupMenu.Large
+        </item>
+        <item name="textAppearanceSmallPopupMenu">
+            @style/TextAppearance.AppCompat.Widget.PopupMenu.Small
+        </item>
     </style>
 
     <style name="CabinetTrueBlackParent" parent="@style/CabinetDarkParent">
