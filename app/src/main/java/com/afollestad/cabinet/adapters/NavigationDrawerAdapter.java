@@ -15,6 +15,7 @@ import com.afollestad.cabinet.R;
 import com.afollestad.cabinet.file.LocalFile;
 import com.afollestad.cabinet.file.base.File;
 import com.afollestad.cabinet.utils.Pins;
+import com.afollestad.cabinet.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,9 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         mContext = context;
         mItems = new ArrayList<Pins.Item>();
         mListener = listener;
+        selectionColor = context.getResources().getColor(R.color.cabinet_color);
+        bodyText = Utils.resolveColor(context, R.attr.body_text);
+
         if (Pins.getAll(context).size() == 0) {
             LocalFile item = new LocalFile(context);
             Pins.add(context, new Pins.Item(item));
@@ -85,6 +89,8 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     private List<Pins.Item> mItems;
     private int mCheckedPos = -1;
     private ClickListener mListener;
+    private int selectionColor;
+    private int bodyText;
 
     public void reload(Context context) {
         set(Pins.getAll(context));
@@ -142,11 +148,14 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         holder.title.setOnClickListener(this);
         holder.title.setOnLongClickListener(this);
         holder.title.setActivated(mCheckedPos == index);
+        holder.title.setTextColor(mCheckedPos == index ? selectionColor : bodyText);
+
         if (mCheckedPos == index) {
-            holder.title.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+            holder.title.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
         } else {
             holder.title.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
         }
+
         if (item.isRemote()) {
             holder.title.setText(item.getDisplay(mContext));
         } else {

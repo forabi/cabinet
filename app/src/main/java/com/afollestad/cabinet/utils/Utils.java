@@ -56,6 +56,13 @@ public class Utils {
         return resId;
     }
 
+    public static int resolveColor(Context context, int color) {
+        TypedArray a = context.obtainStyledAttributes(new int[]{color});
+        int resId = a.getColor(0, context.getResources().getColor(R.color.cabinet_color));
+        a.recycle();
+        return resId;
+    }
+
     public static void lockOrientation(Activity context) {
         int currentOrientation = context.getResources().getConfiguration().orientation;
         if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
