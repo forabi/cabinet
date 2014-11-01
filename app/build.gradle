@@ -42,4 +42,6 @@ dependencies {
     compile 'com.melnykov:floatingactionbutton:+'
     compile 'com.nostra13.universalimageloader:universal-image-loader:+'
     compile 'com.readystatesoftware.systembartint:systembartint:+'
+    compile 'com.jcraft:jsch:0.1.51'
+    compile 'com.anjlab.android.iab.v3:library:1.0.8@aar'
 }
