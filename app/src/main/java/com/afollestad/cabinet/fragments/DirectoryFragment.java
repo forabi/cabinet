@@ -240,6 +240,8 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
             }
         } else menu.findItem(R.id.filterNone).setChecked(true);
 
+        menu.findItem(R.id.change_layout).setChecked(gridColumn > 1);
+
         boolean canShow = !((DrawerLayout) getActivity().findViewById(R.id.drawer_layout)).isDrawerOpen(Gravity.START);
         if (!mDirectory.isRemote()) {
             try {
@@ -654,11 +656,12 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
     }
 
     public void changeLayout() {
-        RecyclerView mRecyclerView = (RecyclerView) getView().findViewById(android.R.id.list);
-        if (mRecyclerView != null) {
-            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),
-                    gridColumn));
-        }
+        View v = getView();
+        if (v == null) return;
+        ((RecyclerView) v.findViewById(android.R.id.list)).setLayoutManager(
+                new GridLayoutManager(getActivity(), gridColumn));
+        mAdapter.invalidateGridMode();
+        getActivity().invalidateOptionsMenu(); // update checkbox
     }
 
     public void reload() {
@@ -770,7 +773,6 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
                 } else {
                     Utils.setGridColumn(this, 1);
                 }
-                mAdapter.invalidateGridMode();
                 break;
             case R.id.sortNameFoldersTop:
                 item.setChecked(true);
