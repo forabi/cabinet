@@ -56,6 +56,7 @@
     <string name="confirm_delete">Are you sure you want to delete %1$s?</string>
     <string name="confirm_delete_xfiles">Are you sure you want to delete %1$d files?</string>
     <string name="unavailable">Unavailable</string>
+    <string name="change_layout">Change layout</string>
 
     <string name="sort_by">Sort By</string>
     <string name="sort_name_folderstop">Name, folders first</string>
