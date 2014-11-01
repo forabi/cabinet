@@ -766,11 +766,11 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
                 break;
             case R.id.change_layout:
                 if (gridColumn == 1) {
-                    // set to grid
                     Utils.setGridColumn(this, getActivity().getResources().getInteger(R.integer.grid_columns));
                 } else {
-                    Utils.setGridColumn(this, 1);       // set to list
+                    Utils.setGridColumn(this, 1);
                 }
+                mAdapter.invalidateGridMode();
                 break;
             case R.id.sortNameFoldersTop:
                 item.setChecked(true);

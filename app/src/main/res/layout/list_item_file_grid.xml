@@ -72,7 +72,8 @@
             android:layout_centerVertical="true"
             android:padding="8dp"
             android:focusableInTouchMode="false"
-            android:focusable="false" />
+            android:focusable="false"
+            android:layout_marginRight="7dp" />
 
     </RelativeLayout>
 
