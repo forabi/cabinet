@@ -149,11 +149,9 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
         if (cab != null && cab instanceof BaseFileCab) {
             mAdapter.restoreCheckedPaths(((BaseFileCab) cab).getFiles());
             if (act.shouldAttachFab) {
-                ((DrawerActivity) getActivity()).invalidateSystemBarTintManager();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        ((DrawerActivity) getActivity()).waitFabInvalidate();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
