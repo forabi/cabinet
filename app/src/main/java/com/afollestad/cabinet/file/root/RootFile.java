@@ -45,6 +45,7 @@ public class RootFile extends File {
     @Override
     public File getParent() {
         java.io.File mFile = new java.io.File(getPath());
+        if (mFile.getParent() == null) return null;
         return new RootFile(getContext(), mFile.getParentFile());
     }
 
@@ -377,8 +378,7 @@ public class RootFile extends File {
         if (mountPath != null) {
             cmds = new String[]{
                     "mount -o remount,rw " + mountPath,
-                    command,
-                    "mount -o remount,ro " + mountPath
+                    command
             };
         } else {
             cmds = new String[]{command};

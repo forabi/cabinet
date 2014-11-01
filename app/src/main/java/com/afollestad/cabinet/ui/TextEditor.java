@@ -37,6 +37,7 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
 
     private EditText mInput;
     private java.io.File mFile;
+    private java.io.File mTempFile;
     private String mOriginal;
     private Timer mTimer;
     private boolean mModified;
@@ -164,6 +165,7 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
             if (exitAfter) finish();
             return;
         }
+        Log.v("TextEditor", "Uploading changes to remote server...");
         new LocalFile(this, mFile).copy(getRemoteSwitch(), new SftpClient.FileCallback() {
             @Override
             public void onComplete(File file) {
@@ -189,16 +191,34 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
                 try {
                     if (new LocalFile(TextEditor.this, mFile).requiresRoot()) {
                         new RootFile(TextEditor.this, mFile).mountParent(true);
+                        mTempFile = java.io.File.createTempFile(mFile.getName(), ".temp");
                     }
+                    Log.v("TextEditor", "Writing changes to " + (mTempFile != null ?
+                            mTempFile.getPath() : mFile.getPath()) + "...");
 
-                    FileOutputStream os = new FileOutputStream(mFile);
+                    FileOutputStream os = new FileOutputStream(mTempFile != null ? mTempFile : mFile);
                     os.write(mInput.getText().toString().getBytes("UTF-8"));
                     os.close();
+
+                    if (mTempFile != null) {
+                        try {
+                            Log.v("TextEditor", "Moving temporary file " + mTempFile.getPath() + " to " + mFile.getPath() + "...");
+                            RootFile.runAsRoot(TextEditor.this, "mv -f \"" + mTempFile.getAbsolutePath() + "\" \"" + mFile.getAbsolutePath() + "\"",
+                                    new RootFile(TextEditor.this, mFile.getParentFile()));
+                        } catch (final Exception e) {
+                            throw e;
+                        } finally {
+                            Log.v("TextEditor", "Deleting temp file " + mTempFile.getPath() + "...");
+                            mTempFile.delete();
+                            mTempFile = null;
+                        }
+                    }
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mDialog.dismiss();
+                            Log.v("TextEditor", "Save complete!");
                             if (exitAfter) {
                                 mOriginal = null;
                                 upload(exitAfter);
@@ -210,7 +230,7 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
                             }
                         }
                     });
-                } catch (final IOException e) {
+                } catch (final Exception e) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
