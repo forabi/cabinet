@@ -146,7 +146,7 @@
 <b>Nome:</b>&nbsp;&nbsp;%1$s<br/><b>Caminho:</b>&nbsp;&nbsp;%2$s<br/><b>Conteúdo:</b>&nbsp;&nbsp;%3$s<br/><b>Modificado:</b>&nbsp;&nbsp;%4$s
     ]]></string>
     <string name="new_file">Nova Ficheiro</string>
-    <string name="making_file">A criar ficheiro...</string>
+    <string name="making_file">A criar ficheiro…</string>
     <string name="created_file">Ficheiro criado %1$s</string>
     <string name="file_already_exists">O ficheiro já existe</string>
     <string name="failed_make_file">Falha ao criar um novo ficheiro: %1$s</string>
@@ -175,5 +175,6 @@
     <string name="sdcard">Cartão SD</string>
     <string name="owner">Dono</string>
     <string name="group">Grupo</string>
-    <string name="applying_permissions">Aplicando permissões...</string>
+    <string name="applying_permissions">Aplicando permissões…</string>
+    <string name="grid_mode">Grid mode</string>
 </resources>
