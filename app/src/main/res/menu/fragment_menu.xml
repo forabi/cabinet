@@ -14,6 +14,11 @@
         app:showAsAction="collapseActionView|ifRoom"
         app:actionViewClass="android.support.v7.widget.SearchView" />
     <item
+        android:id="@+id/change_layout"
+        android:title="@string/change_layout"
+        android:icon="@drawable/ic_list_toggle"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/sort"
         android:title="@string/sort_by"
         android:icon="@drawable/ic_sort"

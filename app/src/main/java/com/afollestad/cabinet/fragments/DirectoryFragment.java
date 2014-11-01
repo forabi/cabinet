@@ -26,6 +26,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +86,7 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
     private boolean showHidden;
     public int sorter;
     public String filter;
+    public int gridColumn;
     private Thread searchThread;
 
     public File getDirectory() {
@@ -126,6 +128,7 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
         showHidden = Utils.getShowHidden(act);
         sorter = Utils.getSorter(act);
         filter = Utils.getFilter(act);
+        gridColumn = Utils.getGridColumn(act);
     }
 
     @Override
@@ -494,7 +497,7 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
         }));
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),
-                getResources().getInteger(R.integer.grid_columns)));
+                gridColumn));
         mAdapter = new FileAdapter(getActivity(), this, this, this, mQuery != null);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -652,6 +655,16 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
         return mAdapter;
     }
 
+    // ToDo, this reloads the layout
+    // Not sure if this is the correct way to change the layout.
+    public void changeLayout() {
+        RecyclerView mRecyclerView = (RecyclerView) getView().findViewById(android.R.id.list);
+        if (mRecyclerView != null) {
+            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),
+                    gridColumn));
+        }
+    }
+
     public void reload() {
         final View v = getView();
         if (getActivity() == null || v == null) {
@@ -754,6 +767,13 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
         switch (item.getItemId()) {
             case R.id.goUp:
                 ((DrawerActivity) getActivity()).switchDirectory(mDirectory.getParent(), false);
+                break;
+            case R.id.change_layout:
+                if (gridColumn == 1) {
+                    Utils.setGridColumn(this, 2);       // set to grid
+                } else {
+                    Utils.setGridColumn(this, 1);       // set to list
+                }
                 break;
             case R.id.sortNameFoldersTop:
                 item.setChecked(true);
