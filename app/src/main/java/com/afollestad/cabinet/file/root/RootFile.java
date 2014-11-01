@@ -267,7 +267,7 @@ public class RootFile extends File {
         List<File> results = new ArrayList<File>();
         if (requiresRoot()) {
             if (Shell.SU.available()) {
-                List<String> response = runAsRoot("ls -l \"" + getPath() + "\"", true);
+                List<String> response = runAsRoot("ls -l \"" + getPath() + "\"", false);
                 if (response == null) return results;
                 return LsParser.parse(getContext(), getPath(), response, filter, includeHidden).getFiles();
             }
