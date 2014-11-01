@@ -9,7 +9,6 @@
 
     <attr name="menu_selector" format="reference" />
     <attr name="list_selector" format="reference" />
-    <attr name="list_selector_lighter" format="reference" />
     <attr name="overflow" format="reference" />
     <attr name="empty_image" format="reference" />
     <attr name="empty_image_error" format="reference" />

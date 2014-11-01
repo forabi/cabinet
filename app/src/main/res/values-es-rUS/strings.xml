@@ -176,5 +176,5 @@
     <string name="owner">Dueño</string>
     <string name="group">Grupo</string>
     <string name="applying_permissions">Aplicando permisos…</string>
-    <string name="grid_mode">Grid mode</string>
+    <string name="grid_mode">modo malla</string>
 </resources>

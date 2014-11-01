@@ -3,13 +3,11 @@
 
     <style name="_SelectorParent" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="list_selector">@drawable/list_ripple_selector</item>
-        <item name="list_selector_lighter">@drawable/list_ripple_selector_lighter</item>
         <item name="menu_selector">@drawable/menu_ripple_selector</item>
     </style>
 
     <style name="_SelectorParentDark" parent="Theme.AppCompat">
         <item name="list_selector">@drawable/list_ripple_selector_dark</item>
-        <item name="list_selector_lighter">@drawable/list_ripple_selector_lighter_dark</item>
         <item name="menu_selector">@drawable/menu_ripple_selector_dark</item>
     </style>
 
