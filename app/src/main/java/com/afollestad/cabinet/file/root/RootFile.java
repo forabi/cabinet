@@ -300,28 +300,40 @@ public class RootFile extends File {
         }
     }
 
-    public List<String> runAsRoot(String command, boolean mount) throws Exception {
-        String mountPath = null;
-        if (mount) {
-            mountPath = getParent() != null ? getParent().getPath() : "/";
+    public static String getMountablePath(File from) {
+        if (from == null) return null;
+        if (from.getParent() == null || from.getParent().equals("/")) return from.getPath();
+        File lastParent = from.getParent();
+        if (lastParent.getParent() == null) {
+            return lastParent.getPath();
+        } else {
+            while (true) {
+                if (lastParent.getParent() == null || lastParent.getParent().getPath().equals("/")) {
+                    return lastParent.getPath();
+                }
+                lastParent = lastParent.getParent();
+            }
         }
-        return runAsRoot(getContext(), command, mountPath);
+    }
+
+    public List<String> runAsRoot(String command, boolean mount) throws Exception {
+        return runAsRoot(getContext(), command, mount ? getParent() : null);
     }
 
     public void mountParent(boolean chmodThis) {
         if (getParent() == null) return;
-        Log.v("ROOTFILE-PARENT", getParent().getPath() + ", " + getParent().getParent().getPath());
-        Log.v("Cabinet-SU", "Mount: " + getParent().getPath());
+        String mountablePath = getMountablePath(getParent());
+        Log.v("Cabinet-SU", "Mount: " + mountablePath);
         // CHMOD gives temporary permission to write
         String[] cmds;
         if (chmodThis) {
             cmds = new String[]{
                     "chmod 777 " + getPath(),
-                    "mount -o remount,rw " + getParent().getPath()
+                    "mount -o remount,rw " + mountablePath
             };
         } else {
             cmds = new String[]{
-                    "mount -o remount,rw " + getParent().getPath()
+                    "mount -o remount,rw " + mountablePath
             };
         }
         List<String> results = Shell.SU.run(cmds);
@@ -333,16 +345,17 @@ public class RootFile extends File {
 
     public void unmountParent(boolean chmodThis) {
         if (getParent() == null) return;
-        Log.v("Cabinet-SU", "Un-mount: " + getParent().getPath());
+        String mountablePath = getMountablePath(getParent());
+        Log.v("Cabinet-SU", "Un-mount: " + mountablePath);
         String[] cmds;
         if (chmodThis) {
             cmds = new String[]{
                     "chmod 600 " + getPath(),
-                    "mount -o remount,ro " + getParent().getPath()
+                    "mount -o remount,ro " + mountablePath
             };
         } else {
             cmds = new String[]{
-                    "mount -o remount,ro " + getParent().getPath()
+                    "mount -o remount,ro " + mountablePath
             };
         }
         List<String> results = Shell.SU.run(cmds);
@@ -352,7 +365,8 @@ public class RootFile extends File {
         }
     }
 
-    public static List<String> runAsRoot(Context context, String command, String mountPath) throws Exception {
+    public static List<String> runAsRoot(Context context, String command, File mount) throws Exception {
+        String mountPath = getMountablePath(mount);
         if (mountPath != null)
             Log.v("Cabinet-SU", "Mount: " + mountPath);
         Log.v("Cabinet-SU", command);
