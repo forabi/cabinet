@@ -32,6 +32,7 @@ import com.afollestad.cabinet.fragments.WelcomeFragment;
 import com.afollestad.cabinet.ui.base.NetworkedActivity;
 import com.afollestad.cabinet.utils.Pins;
 import com.anjlab.android.iab.v3.BillingProcessor;
+import com.anjlab.android.iab.v3.TransactionDetails;
 import com.melnykov.fab.FloatingActionButton;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -314,7 +315,7 @@ public class DrawerActivity extends NetworkedActivity implements BillingProcesso
     }
 
     @Override
-    public void onProductPurchased(String productId) {
+    public void onProductPurchased(String productId, TransactionDetails transactionDetails) {
         mBP.consumePurchase(productId);
         Toast.makeText(this, R.string.thank_you, Toast.LENGTH_SHORT).show();
     }
