@@ -139,6 +139,16 @@ public class Utils {
         return PreferenceManager.getDefaultSharedPreferences(context).getInt("sorter", 0);
     }
 
+    public static void setGridColumn(DirectoryFragment context, int gridColumn) {
+        PreferenceManager.getDefaultSharedPreferences(context.getActivity()).edit().putInt("gridColumn", gridColumn).commit();
+        context.gridColumn = gridColumn;
+        context.changeLayout();
+    }
+
+    public static int getGridColumn(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt("gridColumn", 1);
+    }
+
     public static void setFilter(DirectoryFragment context, String filter) {
         PreferenceManager.getDefaultSharedPreferences(context.getActivity()).edit().putString("filter", filter).commit();
         context.filter = filter;
