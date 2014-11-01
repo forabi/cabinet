@@ -79,8 +79,9 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
                 }
 
                 if (new LocalFile(TextEditor.this, mFile).requiresRoot()) {
-                    new RootFile(TextEditor.this, mFile).mountParent();
+                    new RootFile(TextEditor.this, mFile).mountParent(true);
                 }
+
                 String ext = File.getExtension(TextEditor.this, mFile.getName()).toLowerCase(Locale.getDefault());
                 String mime = File.getMimeType(TextEditor.this, ext);
                 Log.v("TextEditor", "Mime: " + mime);
@@ -186,9 +187,14 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
             @Override
             public void run() {
                 try {
+                    if (new LocalFile(TextEditor.this, mFile).requiresRoot()) {
+                        new RootFile(TextEditor.this, mFile).mountParent(true);
+                    }
+
                     FileOutputStream os = new FileOutputStream(mFile);
                     os.write(mInput.getText().toString().getBytes("UTF-8"));
                     os.close();
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -212,6 +218,10 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
                             mDialog.dismiss();
                         }
                     });
+                } finally {
+                    if (new LocalFile(TextEditor.this, mFile).requiresRoot()) {
+                        new RootFile(TextEditor.this, mFile).unmountParent(true);
+                    }
                 }
             }
         }).start();
