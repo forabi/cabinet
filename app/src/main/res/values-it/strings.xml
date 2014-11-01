@@ -24,7 +24,6 @@
     <string name="directory">Directory</string>
     <string name="unknown">Sconosciuto</string>
     <string name="go_up">Vai su</string>
-    <string name="press_back_to_exit">"Premi ancora indietro per uscire…"</string>
     <string name="x_files">%1$d file</string>
     <string name="x_dirs">%1$d directory</string>
     <string name="no_x_files">Nessun file %1$s</string>
@@ -50,6 +49,7 @@
     <string name="confirm_delete">Eliminare veramente %1$s?</string>
     <string name="confirm_delete_xfiles">Eliminare veramente %1$d file?</string>
     <string name="unavailable">Non disponibile</string>
+    <string name="grid_mode">Vista a griglia</string>
     <string name="sort_by">Ordinamento</string>
     <string name="sort_name_folderstop">Nome, prima le cartelle</string>
     <string name="sort_name">Nome</string>
@@ -177,5 +177,4 @@
     <string name="owner">Proprietario</string>
     <string name="group">Gruppo</string>
     <string name="applying_permissions">Applico i permessi…</string>
-    <string name="grid_mode">Grid mode</string>
 </resources>

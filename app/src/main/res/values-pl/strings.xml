@@ -24,7 +24,6 @@ posiada również inne funkcje, takie jak m.in. zdolny dostęp do serwerów popr
     <string name="directory">Katalog</string>
     <string name="unknown">Nieznany</string>
     <string name="go_up">W górę</string>
-    <string name="press_back_to_exit">"Naciśnij jeszcze raz wstecz, aby wyjść"</string>
     <string name="x_files">%1$d pliki</string>
     <string name="x_dirs">%1$d Katalogi</string>
     <string name="no_x_files">Brak %1$s plików</string>
@@ -50,6 +49,7 @@ posiada również inne funkcje, takie jak m.in. zdolny dostęp do serwerów popr
     <string name="confirm_delete">Czy na pewo chcesz usunąć %1$s?</string>
     <string name="confirm_delete_xfiles">Czy na pewno chcesz usunąć %1$d pliki?</string>
     <string name="unavailable">Niedostępne</string>
+    <string name="grid_mode">Siatka</string>
     <string name="sort_by">"Sortuj "</string>
     <string name="sort_name_folderstop">"Nazwa, najpierw foldery "</string>
     <string name="sort_name">Nazwa</string>
@@ -181,6 +181,5 @@ posiada również inne funkcje, takie jak m.in. zdolny dostęp do serwerów popr
     <string name="sdcard">Karta SD</string>
     <string name="owner">Właściciel</string>
     <string name="group">Grupa</string>
-    <string name="applying_permissions">Zatwierdzanie uprawnień…</string>
-    <string name="grid_mode">Grid mode</string>
+    <string name="applying_permissions">Stosowanie uprawnień…</string>
 </resources>

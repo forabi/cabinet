@@ -24,7 +24,6 @@
     <string name="directory">Verzeichnis</string>
     <string name="unknown">Unbekannt</string>
     <string name="go_up">Hinauf gehen</string>
-    <string name="press_back_to_exit">"Zum Schließen der App Zurück-Taste erneut drücken"</string>
     <string name="x_files">%1$d Dateien</string>
     <string name="x_dirs">%1$d Verzeichnisse</string>
     <string name="no_x_files">Keine %1$s Dateien</string>
@@ -50,6 +49,7 @@
     <string name="confirm_delete">Sind Sie sicher dass Sie %1$s löschen möchten?</string>
     <string name="confirm_delete_xfiles">Sind Sie sicher dass Sie %1$d Dateien löschen möchten?</string>
     <string name="unavailable">Unverfügbar</string>
+    <string name="grid_mode">Rasteransicht</string>
     <string name="sort_by">Sortieren nach</string>
     <string name="sort_name_folderstop">Name, Ordner zuerst</string>
     <string name="sort_name">Name</string>
@@ -177,5 +177,4 @@
     <string name="owner">Besitzer</string>
     <string name="group">Gruppe</string>
     <string name="applying_permissions">Berechtigungen werden angewendet…</string>
-    <string name="grid_mode">Grid mode</string>
 </resources>

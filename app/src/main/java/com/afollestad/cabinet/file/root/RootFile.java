@@ -117,29 +117,34 @@ public class RootFile extends File {
 
     @Override
     public void copy(final File dest, final SftpClient.FileCallback callback) {
-        Utils.checkDuplicates(getContext(), dest, new Utils.DuplicateCheckResult() {
+        new Thread(new Runnable() {
             @Override
-            public void onResult(final File dest) {
-                try {
-                    runAsRoot("cp -R \"" + getPath() + "\" \"" + dest.getPath() + "\"", true);
-                    getContext().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.onComplete(dest);
+            public void run() {
+                Utils.checkDuplicates(getContext(), dest, new Utils.DuplicateCheckResult() {
+                    @Override
+                    public void onResult(final File dest) {
+                        try {
+                            runAsRoot("cp -R \"" + getPath() + "\" \"" + dest.getPath() + "\"", true);
+                            getContext().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    callback.onComplete(dest);
+                                }
+                            });
+                        } catch (final Exception e) {
+                            e.printStackTrace();
+                            getContext().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Utils.showErrorDialog(getContext(), R.string.failed_copy_file, e);
+                                    callback.onError(null);
+                                }
+                            });
                         }
-                    });
-                } catch (final Exception e) {
-                    e.printStackTrace();
-                    getContext().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Utils.showErrorDialog(getContext(), R.string.failed_copy_file, e);
-                            callback.onError(null);
-                        }
-                    });
-                }
+                    }
+                });
             }
-        });
+        }).start();
     }
 
     @Override
