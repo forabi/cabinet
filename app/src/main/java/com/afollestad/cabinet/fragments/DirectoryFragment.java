@@ -26,7 +26,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -496,8 +495,7 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
             }
         }));
 
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),
-                gridColumn));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), gridColumn));
         mAdapter = new FileAdapter(getActivity(), this, this, this, mQuery != null);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -655,8 +653,6 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
         return mAdapter;
     }
 
-    // ToDo, this reloads the layout
-    // Not sure if this is the correct way to change the layout.
     public void changeLayout() {
         RecyclerView mRecyclerView = (RecyclerView) getView().findViewById(android.R.id.list);
         if (mRecyclerView != null) {
@@ -770,7 +766,8 @@ public class DirectoryFragment extends Fragment implements FileAdapter.IconClick
                 break;
             case R.id.change_layout:
                 if (gridColumn == 1) {
-                    Utils.setGridColumn(this, 2);       // set to grid
+                    // set to grid
+                    Utils.setGridColumn(this, getActivity().getResources().getInteger(R.integer.grid_columns));
                 } else {
                     Utils.setGridColumn(this, 1);       // set to list
                 }
