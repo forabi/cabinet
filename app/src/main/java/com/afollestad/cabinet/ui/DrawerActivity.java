@@ -63,7 +63,11 @@ public class DrawerActivity extends NetworkedActivity implements BillingProcesso
     }
 
     public void disableFab(boolean disable) {
-        toggleFab(disable);
+        if (!disable) {
+            fab.show(true);
+        } else {
+            fab.hide(true);
+        }
         fabDisabled = disable;
     }
 
