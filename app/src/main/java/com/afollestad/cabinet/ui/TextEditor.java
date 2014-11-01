@@ -16,6 +16,7 @@ import android.widget.EditText;
 import com.afollestad.cabinet.R;
 import com.afollestad.cabinet.file.LocalFile;
 import com.afollestad.cabinet.file.base.File;
+import com.afollestad.cabinet.file.root.RootFile;
 import com.afollestad.cabinet.fragments.DetailsDialog;
 import com.afollestad.cabinet.sftp.SftpClient;
 import com.afollestad.cabinet.ui.base.NetworkedActivity;
@@ -77,6 +78,9 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
                     return;
                 }
 
+                if (new LocalFile(TextEditor.this, mFile).requiresRoot()) {
+                    new RootFile(TextEditor.this, mFile).mountParent();
+                }
                 String ext = File.getExtension(TextEditor.this, mFile.getName()).toLowerCase(Locale.getDefault());
                 String mime = File.getMimeType(TextEditor.this, ext);
                 Log.v("TextEditor", "Mime: " + mime);

@@ -6,3 +6,5 @@ Since I'm now in college and no longer have time to maintain and update it, I ma
 
 * [Cabinet on Google Play Store](https://play.google.com/store/apps/details?id=com.afollestad.cabinet)
 * [Cabinet on F-Droid](https://f-droid.org/repository/browse/?fdid=com.afollestad.cabinet)
+
+Translation changes/additions don't believe here, they belong on http://cabinet.oneskyapp.com/.

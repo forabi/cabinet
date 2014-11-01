@@ -25,6 +25,10 @@ public class RootFile extends File {
         super(context, null);
     }
 
+    public RootFile(Activity context, java.io.File from) {
+        super(context, from.getAbsolutePath());
+    }
+
     public RootFile(Activity context, String path, String name) {
         super(context, path + "/" + name);
         setPath(path + "/" + name);
@@ -55,7 +59,7 @@ public class RootFile extends File {
             @Override
             public void run() {
                 try {
-                    runAsRoot("touch \"" + getPath() + "\"");
+                    runAsRoot("touch \"" + getPath() + "\"", true);
                     callback.onComplete();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -71,7 +75,7 @@ public class RootFile extends File {
             @Override
             public void run() {
                 try {
-                    runAsRoot("mkdir -P \"" + getPath() + "\"");
+                    runAsRoot("mkdir -P \"" + getPath() + "\"", true);
                     callback.onComplete();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -90,7 +94,7 @@ public class RootFile extends File {
                     @Override
                     public void run() {
                         try {
-                            runAsRoot("mv -f \"" + getPath() + "\" \"" + newFile.getPath() + "\"");
+                            runAsRoot("mv -f \"" + getPath() + "\" \"" + newFile.getPath() + "\"", true);
                             getContext().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -121,7 +125,7 @@ public class RootFile extends File {
             @Override
             public void onResult(final File dest) {
                 try {
-                    runAsRoot("cp -R \"" + getPath() + "\" \"" + dest.getPath() + "\"");
+                    runAsRoot("cp -R \"" + getPath() + "\" \"" + dest.getPath() + "\"", true);
                     getContext().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -175,7 +179,7 @@ public class RootFile extends File {
         if (isDirectory()) {
             deleteCmd = "rm -rf \"" + getPath() + "\"";
         }
-        runAsRoot(deleteCmd);
+        runAsRoot(deleteCmd, true);
         return true;
     }
 
@@ -224,7 +228,7 @@ public class RootFile extends File {
         } else {
             cmd = "[ -f \"" + getPath() + "\" ] && echo \"1\" || echo \"0\"";
         }
-        return Integer.parseInt(runAsRoot(cmd).get(0)) == 1;
+        return Integer.parseInt(runAsRoot(cmd, true).get(0)) == 1;
     }
 
     @Override
@@ -268,7 +272,7 @@ public class RootFile extends File {
         List<File> results = new ArrayList<File>();
         if (requiresRoot()) {
             if (Shell.SU.available()) {
-                List<String> response = runAsRoot("ls -l \"" + getPath() + "\"");
+                List<String> response = runAsRoot("ls -l \"" + getPath() + "\"", true);
                 return LsParser.parse(getContext(), getPath(), response, filter, includeHidden).getFiles();
             }
         }
@@ -300,18 +304,51 @@ public class RootFile extends File {
         }
     }
 
-    public List<String> runAsRoot(String command) throws Exception {
-        return runAsRoot(getContext(), command);
+    public List<String> runAsRoot(String command, boolean mount) throws Exception {
+        String mountPath = null;
+        if (mount) {
+            mountPath = getParent() != null ? getParent().getPath() : "/";
+        }
+        return runAsRoot(getContext(), command, mountPath);
     }
 
-    public static List<String> runAsRoot(Context context, String command) throws Exception {
+    public void mountParent() {
+        if (getParent() == null) return;
+        Log.v("Cabinet-SU", "Mount: " + getParent().getPath());
+        List<String> results = Shell.SU.run("mount -o remount,rw " + getParent().getPath());
+        if (results != null && results.size() > 0) {
+            for (String r : results)
+                Log.v("Cabinet-SU", "Mount result: " + r);
+        }
+    }
+
+    public void unmountParent() {
+        if (getParent() == null) return;
+        Log.v("Cabinet-SU", "Unount: " + getParent().getPath());
+        List<String> results = Shell.SU.run("mount -o remount,ro " + getParent().getPath());
+        if (results != null && results.size() > 0) {
+            for (String r : results)
+                Log.v("Cabinet-SU", "Mount result: " + r);
+        }
+    }
+
+    public static List<String> runAsRoot(Context context, String command, String mountPath) throws Exception {
+        if (mountPath != null)
+            Log.v("Cabinet-SU", "Mount: " + mountPath);
         Log.v("Cabinet-SU", command);
         boolean suAvailable = Shell.SU.available();
         if (!suAvailable)
             throw new Exception(context.getString(R.string.superuser_not_available));
-        return Shell.SU.run(new String[]{
-                "mount -o remount,rw /",
-                command
-        });
+        String[] cmds;
+        if (mountPath != null) {
+            cmds = new String[]{
+                    "mount -o remount,rw " + mountPath,
+                    command,
+                    "mount -o remount,ro " + mountPath,
+            };
+        } else {
+            cmds = new String[]{command};
+        }
+        return Shell.SU.run(cmds);
     }
 }
