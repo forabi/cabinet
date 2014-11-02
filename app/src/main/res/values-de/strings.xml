@@ -24,7 +24,6 @@
     <string name="directory">Verzeichnis</string>
     <string name="unknown">Unbekannt</string>
     <string name="go_up">Hinauf gehen</string>
-    <string name="press_back_to_exit">"Zum Schließen der App Zurück-Taste erneut drücken"</string>
     <string name="x_files">%1$d Dateien</string>
     <string name="x_dirs">%1$d Verzeichnisse</string>
     <string name="no_x_files">Keine %1$s Dateien</string>
@@ -50,6 +49,7 @@
     <string name="confirm_delete">Sind Sie sicher dass Sie %1$s löschen möchten?</string>
     <string name="confirm_delete_xfiles">Sind Sie sicher dass Sie %1$d Dateien löschen möchten?</string>
     <string name="unavailable">Unverfügbar</string>
+    <string name="grid_mode">Rasteransicht</string>
     <string name="sort_by">Sortieren nach</string>
     <string name="sort_name_folderstop">Name, Ordner zuerst</string>
     <string name="sort_name">Name</string>
@@ -147,17 +147,17 @@
  <b>Name:</b>&nbsp;&nbsp;%1$s<br/><b>Pfad:</b>&nbsp;&nbsp;%2$s<br/><b>Inhalte:</b>&nbsp;&nbsp;%3$s<br/><b>Verändert:</b>&nbsp;&nbsp;%4$s
     ]]></string>
     <string name="new_file">Neuer Datei</string>
-    <string name="making_file">Erstelle Datei...</string>
+    <string name="making_file">Erstelle Datei…</string>
     <string name="created_file">Datei %1$s erstellt</string>
     <string name="file_already_exists">Datei existiert bereits</string>
     <string name="failed_make_file">Erstellen der Datei %1$s fehlgeschlagen</string>
-    <string name="pick_a_file">Wählen sie eine Datei...</string>
+    <string name="pick_a_file">Wählen sie eine Datei…</string>
     <string name="cabinet_text_editor">Cabinet Texteditor</string>
     <string name="save">Speichern</string>
     <string name="unsaved_changes">Ungespeicherte Änderungen</string>
     <string name="unsaved_changes_desc">Sie haben ungespeicherte Änderungen, möchten Sie diese vor dem Verlassen speichern?</string>
-    <string name="saving">Speichern...</string>
-    <string name="loading">Lade...</string>
+    <string name="saving">Speichern…</string>
+    <string name="loading">Lade…</string>
     <string name="unsupported_extension">Nicht unterstützer Dateityp</string>
     <string name="unsupported_extension_desc">Dieser Dateityp kann nicht im Texteditor geöffnet werden.</string>
     <string name="file_already_exists_warning">Warnung: Diese Datei existiert bereits. Die neue Datei wird als Duplikat erscheinen.</string>
@@ -176,5 +176,5 @@
     <string name="sdcard">SD-Karte</string>
     <string name="owner">Besitzer</string>
     <string name="group">Gruppe</string>
-    <string name="applying_permissions">Berechtigungen werden angewendet...</string>
+    <string name="applying_permissions">Berechtigungen werden angewendet…</string>
 </resources>

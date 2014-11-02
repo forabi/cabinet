@@ -24,7 +24,6 @@
     <string name="directory">Directory</string>
     <string name="unknown">Sconosciuto</string>
     <string name="go_up">Vai su</string>
-    <string name="press_back_to_exit">"Premi ancora indietro per uscire…"</string>
     <string name="x_files">%1$d file</string>
     <string name="x_dirs">%1$d directory</string>
     <string name="no_x_files">Nessun file %1$s</string>
@@ -50,6 +49,7 @@
     <string name="confirm_delete">Eliminare veramente %1$s?</string>
     <string name="confirm_delete_xfiles">Eliminare veramente %1$d file?</string>
     <string name="unavailable">Non disponibile</string>
+    <string name="grid_mode">Vista a griglia</string>
     <string name="sort_by">Ordinamento</string>
     <string name="sort_name_folderstop">Nome, prima le cartelle</string>
     <string name="sort_name">Nome</string>
@@ -118,7 +118,7 @@
     <string name="no_thanks">No grazie</string>
     <string name="file">File</string>
     <string name="folder">Cartella</string>
-    <string name="remote_connection">Connessione remota...</string>
+    <string name="remote_connection">Connessione remota…</string>
     <string name="text">Testo</string>
     <string name="image">Immagine</string>
     <string name="audio">Audio</string>
@@ -147,7 +147,7 @@
         <b>Nome:</b>&nbsp;&nbsp;%1$s<br/><b>Percorso:</b>&nbsp;&nbsp;%2$s<br/><b>Contenuti:</b>&nbsp;&nbsp;%3$s<br/><b>Modificato:</b>&nbsp;&nbsp;%4$s
     ]]></string>
     <string name="new_file">Nuova File</string>
-    <string name="making_file">Creazione file...</string>
+    <string name="making_file">Creazione file…</string>
     <string name="created_file">File %1$s creato</string>
     <string name="file_already_exists">File già esistente</string>
     <string name="failed_make_file">Impossibile creare un nuovo file: %1$s</string>
@@ -156,8 +156,8 @@
     <string name="save">Salva</string>
     <string name="unsaved_changes">Modifiche non salvate</string>
     <string name="unsaved_changes_desc">Sono presenti modifiche non salvate. Salvarle prima di uscire?</string>
-    <string name="saving">Salvataggio...</string>
-    <string name="loading">Caricamento...</string>
+    <string name="saving">Salvataggio…</string>
+    <string name="loading">Caricamento…</string>
     <string name="unsupported_extension">Estensione non supportata</string>
     <string name="unsupported_extension_desc">Impossibile aprire questo tipo di file per la modifica del testo.</string>
     <string name="file_already_exists_warning">Attenzione: file già esistente. Il nuovo file apparirà come un duplicato.</string>
@@ -176,5 +176,5 @@
     <string name="sdcard">Scheda SD</string>
     <string name="owner">Proprietario</string>
     <string name="group">Gruppo</string>
-    <string name="applying_permissions">Applico i permessi...</string>
+    <string name="applying_permissions">Applico i permessi…</string>
 </resources>

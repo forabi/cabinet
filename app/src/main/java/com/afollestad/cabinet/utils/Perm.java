@@ -28,7 +28,7 @@ public class Perm {
             @Override
             public void run() {
                 try {
-                    final List<String> results = RootFile.runAsRoot(file.getContext(), cmd);
+                    final List<String> results = RootFile.runAsRoot(file.getContext(), cmd, file.getParent());
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {

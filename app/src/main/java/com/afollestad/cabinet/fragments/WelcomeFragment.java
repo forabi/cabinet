@@ -44,11 +44,9 @@ public class WelcomeFragment extends Fragment {
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
         final DrawerActivity act = (DrawerActivity) activity;
-        act.invalidateSystemBarTintManager();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                act.waitFabInvalidate();
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

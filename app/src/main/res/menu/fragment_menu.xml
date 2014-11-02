@@ -13,6 +13,7 @@
         android:icon="@drawable/ic_search"
         app:showAsAction="collapseActionView|ifRoom"
         app:actionViewClass="android.support.v7.widget.SearchView" />
+
     <item
         android:id="@+id/sort"
         android:title="@string/sort_by"
@@ -70,6 +71,10 @@
             </group>
         </menu>
     </item>
+    <item
+        android:id="@+id/change_layout"
+        android:title="@string/grid_mode"
+        android:checkable="true" />
     <item
         android:id="@+id/donate"
         android:title="@string/donate">
