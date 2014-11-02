@@ -21,8 +21,6 @@
         <item name="colorAccent">@color/cabinet_accent_color</item>
 
         <item name="android:buttonStyle">@style/ButtonCabinet</item>
-        <item name="actionModeBackground">@color/cabinet_color</item>
-        <item name="actionModeCloseDrawable">@drawable/ic_action_close</item>
 
         <item name="ic_file_apk">@drawable/ic_file_apk</item>
         <item name="ic_file_audio">@drawable/ic_file_audio</item>
@@ -49,6 +47,19 @@
         <item name="textAppearanceSmallPopupMenu">
             @style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small
         </item>
+
+        <item name="actionModeCopyDrawable">@drawable/ic_copy</item>
+        <item name="actionModePasteDrawable">@drawable/ic_paste</item>
+        <item name="actionModeSelectAllDrawable">@drawable/ic_selectall</item>
+        <item name="actionModeShareDrawable">@drawable/ic_share</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_action_close</item>
+        <item name="actionModeCutDrawable">@drawable/ic_cut</item>
+
+        <item name="android:actionModeCopyDrawable">@drawable/ic_copy</item>
+        <item name="android:actionModePasteDrawable">@drawable/ic_paste</item>
+        <item name="android:actionModeSelectAllDrawable">@drawable/ic_selectall</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_action_close</item>
+        <item name="android:actionModeCutDrawable">@drawable/ic_cut</item>
     </style>
 
     <style name="_SelectorParentDark" parent="Theme.AppCompat">
@@ -73,8 +84,6 @@
         <item name="colorAccent">@color/cabinet_accent_color</item>
 
         <item name="android:buttonStyle">@style/ButtonCabinet</item>
-        <item name="actionModeBackground">@color/cabinet_color</item>
-        <item name="actionModeCloseDrawable">@drawable/ic_action_close</item>
 
         <item name="ic_file_apk">@drawable/ic_file_apk_light</item>
         <item name="ic_file_audio">@drawable/ic_file_audio_light</item>
@@ -101,6 +110,18 @@
         <item name="textAppearanceSmallPopupMenu">
             @style/TextAppearance.AppCompat.Widget.PopupMenu.Small
         </item>
+
+        <item name="actionModeCutDrawable">@drawable/ic_cut_black</item>
+        <item name="actionModeCopyDrawable">@drawable/ic_copy_black</item>
+        <item name="actionModePasteDrawable">@drawable/ic_paste_black</item>
+        <item name="actionModeSelectAllDrawable">@drawable/ic_selectall_black</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_action_close_black</item>
+
+        <item name="android:actionModeCutDrawable">@drawable/ic_cut_black</item>
+        <item name="android:actionModeCopyDrawable">@drawable/ic_copy_black</item>
+        <item name="android:actionModePasteDrawable">@drawable/ic_paste_black</item>
+        <item name="android:actionModeSelectAllDrawable">@drawable/ic_selectall_black</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_action_close_black</item>
     </style>
 
     <style name="CabinetTrueBlackParent" parent="@style/CabinetDarkParent">
