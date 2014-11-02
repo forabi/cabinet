@@ -55,6 +55,7 @@
     <string name="confirm_delete">أتريد حقًّا حذف %1$s؟</string>
     <string name="confirm_delete_xfiles">أتريد حقًّا حذف الملفّات (%1$d)؟</string>
     <string name="unavailable">غير مُتاح</string>
+    <string name="grid_mode">تخطيط الشبكة</string>
 
     <string name="sort_by">رتّب حسب</string>
     <string name="sort_name_folderstop">الاسم، المُجلّدات أولاً</string>
