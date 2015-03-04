@@ -56,6 +56,13 @@ public class Utils {
         return resId;
     }
 
+    public static int resolveColor(Context context, int color) {
+        TypedArray a = context.obtainStyledAttributes(new int[]{color});
+        int resId = a.getColor(0, context.getResources().getColor(R.color.cabinet_color));
+        a.recycle();
+        return resId;
+    }
+
     public static void lockOrientation(Activity context) {
         int currentOrientation = context.getResources().getConfiguration().orientation;
         if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -130,6 +137,16 @@ public class Utils {
 
     public static int getSorter(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getInt("sorter", 0);
+    }
+
+    public static void setGridColumn(DirectoryFragment context, int gridColumn) {
+        PreferenceManager.getDefaultSharedPreferences(context.getActivity()).edit().putInt("gridColumn", gridColumn).commit();
+        context.gridColumn = gridColumn;
+        context.changeLayout();
+    }
+
+    public static int getGridColumn(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt("gridColumn", 1);
     }
 
     public static void setFilter(DirectoryFragment context, String filter) {

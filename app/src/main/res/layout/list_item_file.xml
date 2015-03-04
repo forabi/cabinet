@@ -31,7 +31,7 @@
                 android:id="@android:id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="19sp"
+                android:textSize="17sp"
                 android:textColor="?title_text"
                 android:singleLine="true"
                 android:fontFamily="sans-serif"
@@ -74,7 +74,7 @@
             android:padding="8dp"
             android:focusableInTouchMode="false"
             android:focusable="false"
-            android:layout_marginRight="14dp" />
+            android:layout_marginRight="7dp" />
 
     </RelativeLayout>
 
@@ -82,7 +82,7 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="?android:listDivider"
+        android:background="?inset_divider"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/file_item_spacing"
         android:layout_marginLeft="64dp"

@@ -104,16 +104,14 @@ public abstract class File implements Serializable {
         return readableFileSize(length());
     }
 
-    public static String getExtension(Context context, String name) {
+    public static String getExtension(String name) {
         name = name.toLowerCase();
-        if (name.startsWith(".") || !name.substring(1).contains("."))
-            return context.getString(R.string.unknown);
         return name.substring(name.lastIndexOf('.') + 1);
     }
 
     public final String getExtension() {
         if (isDirectory()) return "";
-        return getExtension(getContext(), getName());
+        return getExtension(getName());
     }
 
     public static String getMimeType(Context context, String extension) {
@@ -177,7 +175,7 @@ public abstract class File implements Serializable {
 
     public abstract void mkdir(SftpClient.CompletionCallback callback);
 
-    public abstract void rename(File newFile, SftpClient.CompletionCallback callback);
+    public abstract void rename(File newFile, SftpClient.FileCallback callback);
 
     public abstract void copy(File dest, SftpClient.FileCallback callback);
 

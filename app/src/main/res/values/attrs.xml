@@ -5,10 +5,10 @@
     <attr name="body_text" format="color" />
     <attr name="drawer_background" format="color" />
     <attr name="empty_text" format="color" />
+    <attr name="inset_divider" format="color" />
 
     <attr name="menu_selector" format="reference" />
     <attr name="list_selector" format="reference" />
-    <attr name="list_selector_lighter" format="reference" />
     <attr name="overflow" format="reference" />
     <attr name="empty_image" format="reference" />
     <attr name="empty_image_error" format="reference" />

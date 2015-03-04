@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name" translatable="false">Cabinet بيتا</string>
+
+    <string name="welcome">مرحبًا!</string>
+    <string name="welcome_intro">مرحبًا بك في Cabinet! Cabinet مدير ملفات مُبسّط صمِّم ليكون جميلاً ويعمل كما ينبغي لمدير الملفات أن يعمل.\n\nألقِ نظرة على هذا المِلفّ:</string>
+    <string name="welcome_conclusion">جرّب النقر على صورة المعاينة أو رمز النقاط الثلاث. النقر على صورة المعاينة يُحدّد الملف لإجراء عمليّات على عدّة ملفات معًا, يمكن إجراء هذا بالنقر وإبقاء الإصبع فوق الملفّات. يُظهر رمز النقاط الثّلاث خيارات متعلّقة بالملفّ.\n\nلـCabinet
+        ميزات أخرى مُتنوّعة, كالوصول إلى الخواديم عبر SFTP والتي سندعك تكتشفها بنفسك!. شكرًا لتجرة Cabinet!</string>
+    <string name="file_stub_title" translatable="false">Android Logo.png</string>
+    <string name="file_stub_size" translatable="false">15 KB</string>
+    <string name="lets_go">لنبدأ!</string>
+
+    <string name="open_as">افتح باعتباره…</string>
+    <string name="pin">ثبّت</string>
+    <string name="copy">انسخ</string>
+    <string name="cut">قُصّ</string>
+    <string name="rename">أعد التسمية</string>
+    <string name="delete">احذف</string>
+    <string name="paste">ألصِق</string>
+    <string name="share">شارِك</string>
+    <string name="zip">اضغط</string>
+    <string name="unzip">فُكَّ الضغط</string>
+    <string name="selectAll">اختر الكلّ</string>
+    <string name="details">التفاصيل</string>
+
+    <string name="no_files">ما من ملفّات</string>
+    <string name="storage">وحدة التّخزين</string>
+    <string name="root">الجذر</string>
+    <string name="directory">المسار</string>
+    <string name="unknown">غير معروف</string>
+    <string name="go_up">انتقل لأعلى</string>
+    <string name="x_files">%1$d ملفًّا</string>
+    <string name="x_dirs">%1$d مسارًا</string>
+    <string name="no_x_files">لا ملفّات %1$s</string>
+    <string name="done">تمّ</string>
+    <string name="remove_shortcut">احذف الاختصار</string>
+    <string name="confirm_remove_shortcut">أتريد حقًّا حذف الاختصار إلى %1$s?</string>
+    <string name="sort_modified">أخر تعديل</string>
+    <string name="modified_x">عُدِّل %1$s</string>
+    <string name="iconpress_hint">بإمكانك النقر على رمز الملفّ لاختياره بسرعة!</string>
+    <string name="drawer_longpress_hint">تلميح: انقر مطوَّلاً على الاختصارات المُبّتة لحذفها!</string>
+    <string name="navigation_drawer_open">افتح قسم التّنقّل</string>
+    <string name="navigation_drawer_close">أغلِق قسم التنقّل</string>
+    <string name="new_folder">مجلّد جديد</string>
+    <string name="created_folder">أنُشئ المجلد %1$s</string>
+    <string name="untitled">غير معنون</string>
+    <string name="renamed_to">أعيدت تسميته إلى %1$s</string>
+    <string name="moved_to">نُقل إلى %1$s</string>
+    <string name="copied_to">نُسخ إلى %1$s</string>
+    <string name="no">لا</string>
+    <string name="yes">نعم</string>
+    <string name="newStr">جديد</string>
+    <string name="search">ابحث</string>
+    <string name="confirm_delete">أتريد حقًّا حذف %1$s؟</string>
+    <string name="confirm_delete_xfiles">أتريد حقًّا حذف الملفّات (%1$d)؟</string>
+    <string name="unavailable">غير مُتاح</string>
+    <string name="grid_mode">تخطيط الشبكة</string>
+
+    <string name="sort_by">رتّب حسب</string>
+    <string name="sort_name_folderstop">الاسم، المُجلّدات أولاً</string>
+    <string name="sort_name">الاسم</string>
+    <string name="sort_extension">اللاحقة</string>
+    <string name="sort_size_lowhigh">الحجم، تصاعديًّا</string>
+    <string name="sort_size_highlow">الحجم، تنازليًّا</string>
+
+    <string name="new_remote_connection">اتصال جديد بخادم بعيد</string>
+    <string name="network_service_label">خدمة Cabinet الشبكيّة</string>
+    <string name="connection_notification_content">اتَّصل بـ%1$s</string>
+    <string name="cabinet_sftp">Cabinet SFTP</string>
+    <string name="disconnect">اقطع الاتّصال</string>
+    <string name="host">المُضيف</string>
+    <string name="port">المنفض</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="password">كلمة المرور</string>
+    <string name="test_connection">اختبر الاتّصال</string>
+    <string name="connection_successful">تجح الاتّصال!</string>
+    <string name="disconnect_prompt">أتريد قطع الاتّصال بـ%1$s؟</string>
+    <string name="uploaded_to">رُفِع إلى %1$s</string>
+    <string name="downloaded_to">حُمِّل إلى %1$s</string>
+    <string name="defaultSshPort" translatable="false">22</string>
+
+    <string name="connecting">يتّصل…</string>
+    <string name="downloading">يُحمّل…</string>
+    <string name="deleting">يحذف…</string>
+    <string name="making_folder">يُنشئ المجلّد…</string>
+    <string name="renaming">يُعيد التسمية…</string>
+    <string name="unzipping">يفكّ الضّغط…</string>
+    <string name="zipping">يضغط…</string>
+    <string name="moving">ينقل…</string>
+    <string name="uploading">يرفع…</string>
+    <string name="copying">ينسخ…</string>
+
+    <string name="failed_delete_file">Failed to delete this file: %1$s</string>
+    <string name="failed_make_directory">Failed to make a new folder: %1$s</string>
+    <string name="failed_rename_file">Failed to rename/move this file: %1$s</string>
+    <string name="failed_unzip_file">Failed to unzip this file: %1$s</string>
+    <string name="failed_zip_files">Failed to zip file(s): %1$s</string>
+    <string name="error">Error</string>
+    <string name="failed_download_file">An error occurred while attempting to download this file: %1$s</string>
+    <string name="failed_connect_server">Failed to connect to the server: %1$s</string>
+    <string name="activity_not_found">No app was found to open this file</string>
+    <string name="failed_upload_file">Failed to upload this file: %1$s</string>
+    <string name="failed_copy_file">Failed to copy this file: %1$s</string>
+    <string name="no_apps_for_sharing">No apps are available for sharing this type of file</string>
+    <string name="directory_already_exists">Directory already exists</string>
+
+    <string name="copy_x">
+<![CDATA[
+        <b>Copy:</b>&nbsp;&nbsp;%1$s
+    ]]>
+    </string>
+    <string name="cut_x">
+<![CDATA[
+        <b>Cut:</b>&nbsp;&nbsp;%1$s
+    ]]>
+    </string>
+    <string name="copy_xfiles">
+<![CDATA[
+        <b>Copy:</b>&nbsp;&nbsp;%1$d files
+    ]]>
+    </string>
+    <string name="cut_xfiles">
+<![CDATA[
+        <b>Cut:</b>&nbsp;&nbsp;%1$d files
+    ]]>
+    </string>
+    <string name="search_files">Search files…</string>
+    <string name="search_x">
+<![CDATA[
+        <b>Search:</b>&nbsp;%1$s
+    ]]>
+    </string>
+
+    <string name="donate">Donate</string>
+    <string name="donation1" translatable="false">$0.99</string>
+    <string name="donation2" translatable="false">$5.00</string>
+    <string name="donation3" translatable="false">$10.00</string>
+    <string name="donation4" translatable="false">$20.00</string>
+    <string name="thank_you">Thank you very much!</string>
+
+    <string name="rate">Rate</string>
+    <string name="later">Later</string>
+    <string name="rate_desc">Do you want to rate Cabinet on Google Play? Good ratings are appreciated!</string>
+    <string name="sure">Sure!</string>
+    <string name="no_thanks">No thanks</string>
+
+    <string-array name="new_options" translatable="false">
+        <item>@string/file</item>
+        <item>@string/folder</item>
+        <item>@string/remote_connection</item>
+    </string-array>
+    <string-array name="open_as_array" translatable="false">
+        <item>@string/text</item>
+        <item>@string/image</item>
+        <item>@string/audio</item>
+        <item>@string/video</item>
+        <item>@string/other</item>
+    </string-array>
+
+    <string name="file">File</string>
+    <string name="folder">Folder</string>
+    <string name="remote_connection">Remote Connection…</string>
+    <string name="text">Text</string>
+    <string name="image">Image</string>
+    <string name="audio">Audio</string>
+    <string name="video">Video</string>
+    <string name="other">Other</string>
+
+    <string name="info">Info</string>
+    <string name="files">Files</string>
+    <string name="show_hidden_files">Show Hidden Files</string>
+    <string name="about">About</string>
+    <string name="about_desc">About the app and its designer.</string>
+    <string name="show_hidden_files_desc">Toggle whether or not Cabinet will show hidden files.</string>
+    <string name="ui">UI</string>
+    <string name="settings">Settings</string>
+
+    <string name="about_body"><![CDATA[
+        A minimalist, intuitive, beautiful file manager for Android 4.1 and above.<br/><br/>
+        Designed by <b>Aidan Follestad</b>.<br/>
+        <a href=\'http://aidanfollestad.com\'>Website</a>&nbsp;&nbsp;
+        <a href=\'https://twitter.com/afollestad\'>Twitter</a>&nbsp;&nbsp;
+        <a href=\'https://google.com/+AidanFollestad\'>Google+</a>&nbsp;&nbsp;
+        <a href=\'https://github.com/afollestad\'>GitHub</a>&nbsp;&nbsp;
+        <a href=\'https://www.linkedin.com/in/afollestad\'>LinkedIn</a>
+    ]]></string>
+    <string name="app_name_and_version" translatable="false"><![CDATA[
+        <b>Cabinet</b>&nbsp;<font color="#888888">v%1$s</font>
+    ]]></string>
+
+    <string name="details_body_file"><![CDATA[
+        <b>Name:</b>&nbsp;&nbsp;%1$s<br/>
+        <b>Path:</b>&nbsp;&nbsp;%2$s<br/>
+        <b>Size:</b>&nbsp;&nbsp;%3$s<br/>
+        <b>Modified:</b>&nbsp;&nbsp;%4$s<br/>
+        <b>Permissions:</b>&nbsp;&nbsp;%5$s
+    ]]></string>
+    <string name="details_body_dir"><![CDATA[
+        <b>Name:</b>&nbsp;&nbsp;%1$s<br/>
+        <b>Path:</b>&nbsp;&nbsp;%2$s<br/>
+        <b>Contents:</b>&nbsp;&nbsp;%3$s<br/>
+        <b>Modified:</b>&nbsp;&nbsp;%4$s
+    ]]></string>
+
+    <string-array name="code_extensions" translatable="false">
+        <item>java</item>
+        <item>js</item>
+        <item>py</item>
+        <item>c</item>
+        <item>cpp</item>
+        <item>css</item>
+        <item>html</item>
+        <item>xml</item>
+        <item>fs</item>
+        <item>lua</item>
+        <item>pl</item>
+        <item>h</item>
+        <item>less</item>
+        <item>jade</item>
+        <item>swift</item>
+        <item>lsp</item>
+        <item>m</item>
+        <item>rb</item>
+        <item>coffee</item>
+        <item>actionscript</item>
+        <item>fla</item>
+        <item>class</item>
+    </string-array>
+
+    <string-array name="archive_extensions" translatable="false">
+        <item>zip</item>
+        <item>tar.gz</item>
+        <item>tar</item>
+        <item>rar</item>
+        <item>7z</item>
+        <item>gzip</item>
+    </string-array>
+
+    <string-array name="other_text_extensions" translatable="false">
+        <item>json</item>
+        <item>prop</item>
+        <item>md</item>
+    </string-array>
+
+    <string name="new_file">New File</string>
+    <string name="making_file">Creating file…</string>
+    <string name="created_file">Created file %1$s</string>
+    <string name="file_already_exists">File already exists</string>
+    <string name="failed_make_file">Failed to make a new file: %1$s</string>
+    <string name="pick_a_file">Pick a file…</string>
+    <string name="cabinet_text_editor">Cabinet Text Editor</string>
+    <string name="save">Save</string>
+    <string name="unsaved_changes">Unsaved Changes</string>
+    <string name="unsaved_changes_desc">You have unsaved changes, do you want to save them before exiting?</string>
+    <string name="saving">Saving…</string>
+    <string name="loading">Loading…</string>
+    <string name="unsupported_extension">Unsupported Extension</string>
+    <string name="unsupported_extension_desc">You cannot open this type of file for text editing.</string>
+    <string name="file_already_exists_warning">Warning: this file already exists. Your new file will appear as a duplicate.</string>
+
+    <string name="auto_unzip_prompt">Unzip this archive into the current directory?</string>
+    <string name="filter">Filter</string>
+    <string name="none">None</string>
+    <string name="archives">Archives</string>
+    <string name="extension">Extension</string>
+    <string name="extension_hint" translatable="false">.txt</string>
+    <string name="no_files_filter">No files for filter: %1$s</string>
+
+    <string name="superuser_not_available">Superuser not available</string>
+    <string name="filter_active">Filter active: %1$s</string>
+
+    <string name="dark_theme">Dark Theme</string>
+    <string name="dark_theme_description">Cabinet will use darker colors.</string>
+    <string name="true_black">True Black</string>
+    <string name="true_black_description">Cabinet will use pure black for AMOLED displays.</string>
+    <string name="sdcard">SD Card</string>
+
+    <string name="mime_textplain" translatable="false">text/plain</string>
+    <string name="owner">Owner</string>
+    <string name="group">Group</string>
+    <string name="r" translatable="false">R</string>
+    <string name="w" translatable="false">W</string>
+    <string name="x" translatable="false">X</string>
+    <string name="applying_permissions">Applying permissions…</string>
+
+</resources>

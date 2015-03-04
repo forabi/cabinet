@@ -44,11 +44,9 @@ public class WelcomeFragment extends Fragment {
     public void onAttach(final Activity activity) {
         super.onAttach(activity);
         final DrawerActivity act = (DrawerActivity) activity;
-        act.invalidateSystemBarTintManager();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                act.waitFabInvalidate();
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -85,7 +83,7 @@ public class WelcomeFragment extends Fragment {
         });
 
         TextView title = (TextView) fileCard.findViewById(android.R.id.title);
-        title.setText(R.string.file_sub_title);
+        title.setText(R.string.file_stub_title);
         title.setTextColor(getResources().getColor(R.color.accent_color));
 
         ((TextView) fileCard.findViewById(android.R.id.content)).setText(R.string.file_stub_size);

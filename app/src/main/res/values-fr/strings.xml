@@ -6,7 +6,8 @@
     <string name="welcome_conclusion">Essayez d\'appuyer sur l\'aperçu ou l\'icône "...". Appuyer sur l\'aperçu sélectionne le fichier pour des actions groupées, ce qui est également possible en restant appuyé sur le fichier. L\'icône "..." ouvre un menu pour traiter le fichier individuellement.\n\nCabinet
  a d\'autres fonctionnalités comme l\'accès à un serveur distant via SFTP, que vous trouverez dans l\'application. Merci d\'utiliser Cabinet !</string>
     <string name="lets_go">Allons-y !</string>
-    <string name="open_as">Ouvrir comme...</string>
+    
+    <string name="open_as">Ouvrir comme…</string>
     <string name="pin">Épingler</string>
     <string name="copy">Copier</string>
     <string name="cut">Couper</string>
@@ -18,6 +19,7 @@
     <string name="unzip">Décompresser</string>
     <string name="selectAll">Sélectionner tout</string>
     <string name="details">Détails</string>
+    
     <string name="no_files">Aucun fichier</string>
     <string name="storage">Stockage interne</string>
     <string name="root">Racine</string>
@@ -50,12 +52,14 @@
     <string name="confirm_delete">Voulez-vous vraiment supprimer %1$s ?</string>
     <string name="confirm_delete_xfiles">Voulez-vous vraiment supprimer %1$d fichiers ?</string>
     <string name="unavailable">Indisponible</string>
+    
     <string name="sort_by">Trier par</string>
     <string name="sort_name_folderstop">Nom, dossiers en premier</string>
     <string name="sort_name">Nom</string>
     <string name="sort_extension">Extension</string>
     <string name="sort_size_lowhigh">Taille, croissant</string>
     <string name="sort_size_highlow">Taille, décroissant</string>
+    
     <string name="new_remote_connection">Nouvelle connexion à distance</string>
     <string name="network_service_label">Service réseau Cabinet</string>
     <string name="connection_notification_content">Connecté à %1$s</string>
@@ -70,16 +74,17 @@
     <string name="disconnect_prompt">Voulez-vous vous déconnecter de %1$s ?</string>
     <string name="uploaded_to">Envoyé vers %1$s</string>
     <string name="downloaded_to">Téléchargé dans %1$s</string>
-    <string name="connecting">Connexion...</string>
-    <string name="downloading">Téléchargement...</string>
-    <string name="deleting">Suppression...</string>
-    <string name="making_folder">Création du dossier...</string>
-    <string name="renaming">Renommage...</string>
-    <string name="unzipping">Décompression...</string>
-    <string name="zipping">Compression...</string>
-    <string name="moving">Déplacement...</string>
-    <string name="uploading">Envoi...</string>
-    <string name="copying">Copie...</string>
+    
+    <string name="connecting">Connexion…</string>
+    <string name="downloading">Téléchargement…</string>
+    <string name="deleting">Suppression…</string>
+    <string name="making_folder">Création du dossier…</string>
+    <string name="renaming">Renommage…</string>
+    <string name="unzipping">Décompression…</string>
+    <string name="zipping">Compression…</string>
+    <string name="moving">Déplacement…</string>
+    <string name="uploading">Envoi…</string>
+    <string name="copying">Copie…</string>
     <string name="failed_delete_file">Erreur lors de la suppression du fichier : %1$s</string>
     <string name="failed_make_directory">Erreur lors de la création du dossier : %1$s</string>
     <string name="failed_rename_file">Erreur lors du renommage/déplacement du fichier : %1$s</string>
@@ -105,7 +110,7 @@
     <string name="cut_xfiles"><![CDATA[
  <b>Couper :</b>&nbsp;&nbsp;%1$d fichiers
     ]]></string>
-    <string name="search_files">Recherche de fichiers...</string>
+    <string name="search_files">Recherche de fichiers…</string>
     <string name="search_x"><![CDATA[
  <b>Rechercher :</b>&nbsp;%1$s
     ]]></string>
@@ -118,7 +123,7 @@
     <string name="no_thanks">Non merci</string>
     <string name="file">Fichier</string>
     <string name="folder">Dossier</string>
-    <string name="remote_connection">Connexion à distance...</string>
+    <string name="remote_connection">Connexion à distance…</string>
     <string name="text">Texte</string>
     <string name="image">Image</string>
     <string name="audio">Audio</string>
@@ -148,17 +153,17 @@
     ]]></string>
     <string name="material_version">Matériel</string>
     <string name="new_file">Nouveau fichier</string>
-    <string name="making_file">Création du fichier...</string>
+    <string name="making_file">Création du fichier…</string>
     <string name="created_file">Fichier %1$s créé</string>
     <string name="file_already_exists">Le fichier existe déjà</string>
     <string name="failed_make_file">Erreur lors de la création du fichier : %1$s</string>
-    <string name="pick_a_file">Choisissez un fichier...</string>
+    <string name="pick_a_file">Choisissez un fichier…</string>
     <string name="cabinet_text_editor">Éditeur texte Cabinet</string>
     <string name="save">Sauvegarder</string>
     <string name="unsaved_changes">Modifications non sauvegardées</string>
     <string name="unsaved_changes_desc">Vous avez des modifications non sauvegardées, voulez-vous les sauvegarder avant de quitter ?</string>
-    <string name="saving">Sauvegarde...</string>
-    <string name="loading">Chargement...</string>
+    <string name="saving">Sauvegarde…</string>
+    <string name="loading">Chargement…</string>
     <string name="unsupported_extension">L\'extension non pris en charge</string>
     <string name="unsupported_extension_desc">Vous ne pouvez pas ouvrir ce type de fichier pour l\'édition de texte.</string>
     <string name="file_already_exists_warning">Avertissement: ce fichier existe. Votre nouveau fichier apparaît comme un double.</string>
@@ -175,4 +180,8 @@
     <string name="true_black">Vrai noir</string>
     <string name="true_black_description">Cabinet le noir pur pour écrans AMOLED.</string>
     <string name="sdcard">Carte SD</string>
+    
+    <string name="owner">Propriétaire</string>
+    <string name="group">Groupe</string>
+    <string name="applying_permissions">Appliquer les permissions…</string>
 </resources>

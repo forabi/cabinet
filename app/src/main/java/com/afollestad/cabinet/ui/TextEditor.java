@@ -16,6 +16,7 @@ import android.widget.EditText;
 import com.afollestad.cabinet.R;
 import com.afollestad.cabinet.file.LocalFile;
 import com.afollestad.cabinet.file.base.File;
+import com.afollestad.cabinet.file.root.RootFile;
 import com.afollestad.cabinet.fragments.DetailsDialog;
 import com.afollestad.cabinet.sftp.SftpClient;
 import com.afollestad.cabinet.ui.base.NetworkedActivity;
@@ -36,6 +37,7 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
 
     private EditText mInput;
     private java.io.File mFile;
+    private java.io.File mTempFile;
     private String mOriginal;
     private Timer mTimer;
     private boolean mModified;
@@ -77,7 +79,11 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
                     return;
                 }
 
-                String ext = File.getExtension(TextEditor.this, mFile.getName()).toLowerCase(Locale.getDefault());
+                if (new LocalFile(TextEditor.this, mFile).requiresRoot()) {
+                    new RootFile(TextEditor.this, mFile).mountParent(true);
+                }
+
+                String ext = File.getExtension(mFile.getName()).toLowerCase(Locale.getDefault());
                 String mime = File.getMimeType(TextEditor.this, ext);
                 Log.v("TextEditor", "Mime: " + mime);
                 List<String> textExts = Arrays.asList(getResources().getStringArray(R.array.other_text_extensions));
@@ -111,16 +117,28 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
                     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(mFile), "UTF-8"));
                     String line;
                     final StringBuilder text = new StringBuilder();
-                    while ((line = br.readLine()) != null) {
-                        text.append(line);
-                        text.append('\n');
+                    try {
+                        while ((line = br.readLine()) != null) {
+                            text.append(line);
+                            text.append('\n');
+                        }
+                    } catch (final OutOfMemoryError e) {
+                        e.printStackTrace();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Utils.showErrorDialog(TextEditor.this, e.getLocalizedMessage());
+                            }
+                        });
                     }
+                    br.close();
                     Log.v("TextEditor", "Setting contents to input area...");
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try {
                                 mOriginal = text.toString();
+                                text.setLength(0); // clear string builder to reduce memory usage
                                 mInput.setText(mOriginal);
                             } catch (OutOfMemoryError e) {
                                 Utils.showErrorDialog(TextEditor.this, e.getLocalizedMessage());
@@ -147,6 +165,7 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
             if (exitAfter) finish();
             return;
         }
+        Log.v("TextEditor", "Uploading changes to remote server...");
         new LocalFile(this, mFile).copy(getRemoteSwitch(), new SftpClient.FileCallback() {
             @Override
             public void onComplete(File file) {
@@ -170,13 +189,36 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
             @Override
             public void run() {
                 try {
-                    FileOutputStream os = new FileOutputStream(mFile);
+                    if (new LocalFile(TextEditor.this, mFile).requiresRoot()) {
+                        new RootFile(TextEditor.this, mFile).mountParent(true);
+                        mTempFile = java.io.File.createTempFile(mFile.getName(), ".temp");
+                    }
+                    Log.v("TextEditor", "Writing changes to " + (mTempFile != null ?
+                            mTempFile.getPath() : mFile.getPath()) + "...");
+
+                    FileOutputStream os = new FileOutputStream(mTempFile != null ? mTempFile : mFile);
                     os.write(mInput.getText().toString().getBytes("UTF-8"));
                     os.close();
+
+                    if (mTempFile != null) {
+                        try {
+                            Log.v("TextEditor", "Moving temporary file " + mTempFile.getPath() + " to " + mFile.getPath() + "...");
+                            RootFile.runAsRoot(TextEditor.this, "mv -f \"" + mTempFile.getAbsolutePath() + "\" \"" + mFile.getAbsolutePath() + "\"",
+                                    new RootFile(TextEditor.this, mFile.getParentFile()));
+                        } catch (final Exception e) {
+                            throw e;
+                        } finally {
+                            Log.v("TextEditor", "Deleting temp file " + mTempFile.getPath() + "...");
+                            mTempFile.delete();
+                            mTempFile = null;
+                        }
+                    }
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mDialog.dismiss();
+                            Log.v("TextEditor", "Save complete!");
                             if (exitAfter) {
                                 mOriginal = null;
                                 upload(exitAfter);
@@ -188,7 +230,7 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
                             }
                         }
                     });
-                } catch (final IOException e) {
+                } catch (final Exception e) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -196,6 +238,10 @@ public class TextEditor extends NetworkedActivity implements TextWatcher {
                             mDialog.dismiss();
                         }
                     });
+                } finally {
+                    if (new LocalFile(TextEditor.this, mFile).requiresRoot()) {
+                        new RootFile(TextEditor.this, mFile).unmountParent(true);
+                    }
                 }
             }
         }).start();

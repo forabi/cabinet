@@ -94,7 +94,7 @@ public class LocalFile extends File {
     }
 
     @Override
-    public void rename(final File newFile, final SftpClient.CompletionCallback callback) {
+    public void rename(final File newFile, final SftpClient.FileCallback callback) {
         getContext().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -115,7 +115,7 @@ public class LocalFile extends File {
                                             public void run() {
                                                 setPath(newFile.getPath());
                                                 uploadProgress.dismiss();
-                                                callback.onComplete();
+                                                callback.onComplete(newFile);
                                             }
                                         });
                                     } catch (final Exception e) {
@@ -159,7 +159,7 @@ public class LocalFile extends File {
                                                 @Override
                                                 public void run() {
                                                     setPath(newFile.getPath());
-                                                    callback.onComplete();
+                                                    callback.onComplete(newFile);
                                                     notifyMediaScannerService(newFile);
                                                 }
                                             });
@@ -180,7 +180,7 @@ public class LocalFile extends File {
                                     @Override
                                     public void run() {
                                         setPath(newFile.getPath());
-                                        callback.onComplete();
+                                        callback.onComplete(newFile);
                                         notifyMediaScannerService(newFile);
                                     }
                                 });
@@ -253,45 +253,50 @@ public class LocalFile extends File {
                 }
             }, (CloudFile) dest);
         } else {
-            if (isDirectory()) {
-                try {
-                    copyRecursive(toJavaFile(), dest.toJavaFile(), false);
-                    getContext().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.onComplete(dest);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if (isDirectory()) {
+                        try {
+                            copyRecursive(toJavaFile(), dest.toJavaFile(), false);
+                            getContext().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    callback.onComplete(dest);
+                                }
+                            });
+                        } catch (Exception e) {
+                            getContext().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Utils.showErrorDialog(getContext(), R.string.failed_copy_file, new Exception("Unable to create the destination directory."));
+                                    callback.onError(null);
+                                }
+                            });
                         }
-                    });
-                } catch (Exception e) {
-                    getContext().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Utils.showErrorDialog(getContext(), R.string.failed_copy_file, new Exception("Unable to create the destination directory."));
-                            callback.onError(null);
-                        }
-                    });
-                }
 
-            } else {
-                try {
-                    final LocalFile result = copySync(toJavaFile(), dest.toJavaFile());
-                    getContext().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            callback.onComplete(result);
+                    } else {
+                        try {
+                            final LocalFile result = copySync(toJavaFile(), dest.toJavaFile());
+                            getContext().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    callback.onComplete(result);
+                                }
+                            });
+                        } catch (final Exception e) {
+                            e.printStackTrace();
+                            getContext().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Utils.showErrorDialog(getContext(), R.string.failed_copy_file, e);
+                                    callback.onError(null);
+                                }
+                            });
                         }
-                    });
-                } catch (final Exception e) {
-                    e.printStackTrace();
-                    getContext().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Utils.showErrorDialog(getContext(), R.string.failed_copy_file, e);
-                            callback.onError(null);
-                        }
-                    });
+                    }
                 }
-            }
+            }).start();
         }
     }
 

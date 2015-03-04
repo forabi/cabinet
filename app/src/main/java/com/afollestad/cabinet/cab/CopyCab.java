@@ -61,7 +61,7 @@ public class CopyCab extends BaseFileCab {
                     file.copy(newFile, new SftpClient.FileCallback() {
                         @Override
                         public void onComplete(File newFile) {
-                            getFragment().reload();
+                            getFragment().getAdapter().add(newFile);
                             if (getFiles().size() > 0)
                                 mDialog.setProgress(mDialog.getProgress() + 1);
                             copyCount++;

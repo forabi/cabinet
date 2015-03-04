@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="_LightUIParent" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="_SelectorParent" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="list_selector">@drawable/list_selector</item>
-        <item name="list_selector_lighter">@drawable/list_selector_lighter</item>
+        <item name="menu_selector">@drawable/menu_selector</item>
     </style>
 
-    <style name="CabinetParent" parent="@style/_LightUIParent">
+    <style name="CabinetParent" parent="@style/_SelectorParent">
         <item name="title_text">@android:color/black</item>
         <item name="body_text">#303030</item>
         <item name="drawer_background">@color/drawer_background</item>
         <item name="overflow">@drawable/ic_overflow_dark</item>
-        <item name="menu_selector">@drawable/menu_selector</item>
-        <item name="list_selector">@drawable/list_selector</item>
-        <item name="list_selector_lighter">@drawable/list_selector_lighter</item>
         <item name="empty_image">@drawable/ic_empty_image</item>
         <item name="empty_image_error">@drawable/ic_empty_error</item>
         <item name="empty_text">@color/empty_text</item>
+        <item name="inset_divider">@color/divider_black</item>
 
         <item name="colorPrimary">@color/cabinet_color</item>
         <item name="colorPrimaryDark">@color/cabinet_color_darker</item>
         <item name="colorAccent">@color/cabinet_accent_color</item>
 
         <item name="android:buttonStyle">@style/ButtonCabinet</item>
-        <item name="actionModeBackground">@color/cabinet_color</item>
-        <item name="actionModeCloseDrawable">@drawable/ic_action_close</item>
 
         <item name="ic_file_apk">@drawable/ic_file_apk</item>
         <item name="ic_file_audio">@drawable/ic_file_audio</item>
@@ -43,35 +39,51 @@
         <item name="ic_file_zip">@drawable/ic_file_zip</item>
         <item name="ic_folder">@drawable/ic_folder</item>
         <item name="ic_folder_hidden">@drawable/ic_folder_hidden</item>
+
+        <item name="android:textColorAlertDialogListItem">?body_text</item>
+        <item name="textAppearanceLargePopupMenu">
+            @style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large
+        </item>
+        <item name="textAppearanceSmallPopupMenu">
+            @style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small
+        </item>
+
+        <item name="actionModeCopyDrawable">@drawable/ic_copy</item>
+        <item name="actionModePasteDrawable">@drawable/ic_paste</item>
+        <item name="actionModeSelectAllDrawable">@drawable/ic_selectall</item>
+        <item name="actionModeShareDrawable">@drawable/ic_share</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_action_close</item>
+        <item name="actionModeCutDrawable">@drawable/ic_cut</item>
+
+        <item name="android:actionModeCopyDrawable">@drawable/ic_copy</item>
+        <item name="android:actionModePasteDrawable">@drawable/ic_paste</item>
+        <item name="android:actionModeSelectAllDrawable">@drawable/ic_selectall</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_action_close</item>
+        <item name="android:actionModeCutDrawable">@drawable/ic_cut</item>
     </style>
 
-
-    <style name="_DarkUIParent" parent="Theme.AppCompat">
+    <style name="_SelectorParentDark" parent="Theme.AppCompat">
         <item name="list_selector">@drawable/list_selector_dark</item>
-        <item name="list_selector_lighter">@drawable/list_selector_lighter_dark</item>
+        <item name="menu_selector">@drawable/menu_selector_dark</item>
     </style>
 
-    <style name="CabinetDarkParent" parent="@style/_DarkUIParent">
+    <style name="CabinetDarkParent" parent="_SelectorParentDark">
         <item name="android:windowBackground">@drawable/dark</item>
 
         <item name="title_text">@android:color/white</item>
         <item name="body_text">#EEEEEE</item>
         <item name="drawer_background">@color/dark_background</item>
         <item name="overflow">@drawable/ic_overflow</item>
-        <item name="menu_selector">@drawable/menu_selector_dark</item>
-        <item name="list_selector">@drawable/list_selector_dark</item>
-        <item name="list_selector_lighter">@drawable/list_selector_lighter_dark</item>
         <item name="empty_image">@drawable/ic_empty_image_light</item>
         <item name="empty_image_error">@drawable/ic_empty_error_light</item>
         <item name="empty_text">@color/empty_text_dark</item>
+        <item name="inset_divider">@color/divider_white</item>
 
         <item name="colorPrimary">@color/cabinet_color</item>
         <item name="colorPrimaryDark">@color/cabinet_color_darker</item>
         <item name="colorAccent">@color/cabinet_accent_color</item>
 
         <item name="android:buttonStyle">@style/ButtonCabinet</item>
-        <item name="actionModeBackground">@color/cabinet_color</item>
-        <item name="actionModeCloseDrawable">@drawable/ic_action_close</item>
 
         <item name="ic_file_apk">@drawable/ic_file_apk_light</item>
         <item name="ic_file_audio">@drawable/ic_file_audio_light</item>
@@ -90,6 +102,26 @@
         <item name="ic_file_zip">@drawable/ic_file_zip_light</item>
         <item name="ic_folder">@drawable/ic_folder_light</item>
         <item name="ic_folder_hidden">@drawable/ic_folder_hidden_light</item>
+
+        <item name="android:textColorAlertDialogListItem">?body_text</item>
+        <item name="textAppearanceLargePopupMenu">
+            @style/TextAppearance.AppCompat.Widget.PopupMenu.Large
+        </item>
+        <item name="textAppearanceSmallPopupMenu">
+            @style/TextAppearance.AppCompat.Widget.PopupMenu.Small
+        </item>
+
+        <item name="actionModeCutDrawable">@drawable/ic_cut_black</item>
+        <item name="actionModeCopyDrawable">@drawable/ic_copy_black</item>
+        <item name="actionModePasteDrawable">@drawable/ic_paste_black</item>
+        <item name="actionModeSelectAllDrawable">@drawable/ic_selectall_black</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_action_close_black</item>
+
+        <item name="android:actionModeCutDrawable">@drawable/ic_cut_black</item>
+        <item name="android:actionModeCopyDrawable">@drawable/ic_copy_black</item>
+        <item name="android:actionModePasteDrawable">@drawable/ic_paste_black</item>
+        <item name="android:actionModeSelectAllDrawable">@drawable/ic_selectall_black</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_action_close_black</item>
     </style>
 
     <style name="CabinetTrueBlackParent" parent="@style/CabinetDarkParent">

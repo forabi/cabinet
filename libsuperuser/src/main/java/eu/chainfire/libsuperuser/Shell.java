@@ -103,8 +103,8 @@ public class Shell {
 
         if (Debug.getSanityChecksEnabledEffective() && Debug.onMainThread()) {
             // check if we're running in the main thread, and if so, crash if
-            // we're in debug mode,
-            // to let the developer know attention is needed here.
+            // we're in debug mode, to let the developer know attention is
+            // needed here.
 
             Debug.log(ShellOnMainThreadException.EXCEPTION_COMMAND);
             throw new ShellOnMainThreadException(ShellOnMainThreadException.EXCEPTION_COMMAND);
@@ -149,20 +149,24 @@ public class Shell {
                 STDIN.write((write + "\n").getBytes("UTF-8"));
                 STDIN.flush();
             }
-            STDIN.write("exit\n".getBytes("UTF-8"));
-            STDIN.flush();
+            try {
+                STDIN.write("exit\n".getBytes("UTF-8"));
+                STDIN.flush();
+            } catch (IOException e) {
+                // happens if the script already contains the exit line - if
+                // there were a more serious issue, it would already have thrown
+                // an exception while writing the script to STDIN
+            }
 
             // wait for our process to finish, while we gobble away in the
             // background
             process.waitFor();
 
             // make sure our threads are done gobbling, our streams are closed,
-            // and the process is
-            // destroyed - while the latter two shouldn't be needed in theory,
-            // and may even produce
-            // warnings, in "normal" Java they are required for guaranteed
-            // cleanup of resources, so
-            // lets be safe and do this on Android as well
+            // and the process is destroyed - while the latter two shouldn't be
+            // needed in theory, and may even produce warnings, in "normal" Java
+            // they are required for guaranteed cleanup of resources, so lets be
+            // safe and do this on Android as well
             try {
                 STDIN.close();
             } catch (IOException e) {
@@ -539,7 +543,7 @@ public class Shell {
          * in a deadlock
          * </p>
          * <p>
-         * See {@link Shell.Interactive} for threading details
+         * See {@link eu.chainfire.libsuperuser.Shell.Interactive} for threading details
          * </p>
          * 
          * @param commandCode Value previously supplied to addCommand
@@ -567,7 +571,7 @@ public class Shell {
          * in a deadlock
          * </p>
          * <p>
-         * See {@link Shell.Interactive} for threading details
+         * See {@link eu.chainfire.libsuperuser.Shell.Interactive} for threading details
          * </p>
          * 
          * @param commandCode Value previously supplied to addCommand
@@ -600,7 +604,7 @@ public class Shell {
     }
 
     /**
-     * Builder class for {@link Shell.Interactive}
+     * Builder class for {@link eu.chainfire.libsuperuser.Shell.Interactive}
      */
     public static class Builder {
         private Handler handler = null;
@@ -618,7 +622,7 @@ public class Shell {
          * Set a custom handler that will be used to post all callbacks to
          * </p>
          * <p>
-         * See {@link Shell.Interactive} for further details on threading and
+         * See {@link eu.chainfire.libsuperuser.Shell.Interactive} for further details on threading and
          * handlers
          * </p>
          * 
@@ -635,7 +639,7 @@ public class Shell {
          * Automatically create a handler if possible ? Default to true
          * </p>
          * <p>
-         * See {@link Shell.Interactive} for further details on threading and
+         * See {@link eu.chainfire.libsuperuser.Shell.Interactive} for further details on threading and
          * handlers
          * </p>
          * 
@@ -727,7 +731,7 @@ public class Shell {
          * </p>
          * <p>
          * The thread on which the callback executes is dependent on various
-         * factors, see {@link Shell.Interactive} for further details
+         * factors, see {@link eu.chainfire.libsuperuser.Shell.Interactive} for further details
          * </p>
          * 
          * @param command Command to execute
@@ -759,7 +763,7 @@ public class Shell {
          * </p>
          * <p>
          * The thread on which the callback executes is dependent on various
-         * factors, see {@link Shell.Interactive} for further details
+         * factors, see {@link eu.chainfire.libsuperuser.Shell.Interactive} for further details
          * </p>
          * 
          * @param commands Commands to execute
@@ -791,7 +795,7 @@ public class Shell {
          * </p>
          * <p>
          * The thread on which the callback executes is dependent on various
-         * factors, see {@link Shell.Interactive} for further details
+         * factors, see {@link eu.chainfire.libsuperuser.Shell.Interactive} for further details
          * </p>
          * 
          * @param commands Commands to execute
@@ -812,7 +816,7 @@ public class Shell {
          * </p>
          * <p>
          * The thread on which the callback executes is dependent on various
-         * factors, see {@link Shell.Interactive} for further details
+         * factors, see {@link eu.chainfire.libsuperuser.Shell.Interactive} for further details
          * </p>
          * 
          * @param onLineListener Callback to be called for each line
@@ -829,7 +833,7 @@ public class Shell {
          * </p>
          * <p>
          * The thread on which the callback executes is dependent on various
-         * factors, see {@link Shell.Interactive} for further details
+         * factors, see {@link eu.chainfire.libsuperuser.Shell.Interactive} for further details
          * </p>
          * 
          * @param onLineListener Callback to be called for each line
@@ -880,14 +884,14 @@ public class Shell {
         }
 
         /**
-         * Construct a {@link Shell.Interactive} instance, and start the shell
+         * Construct a {@link eu.chainfire.libsuperuser.Shell.Interactive} instance, and start the shell
          */
         public Interactive open() {
             return new Interactive(this, null);
         }
 
         /**
-         * Construct a {@link Shell.Interactive} instance, try to start the
+         * Construct a {@link eu.chainfire.libsuperuser.Shell.Interactive} instance, try to start the
          * shell, and call onCommandResultListener to report success or failure
          * 
          * @param onCommandResultListener Callback to return shell open status
@@ -899,7 +903,7 @@ public class Shell {
 
     /**
      * <p>
-     * An interactive shell - initially created with {@link Shell.Builder} -
+     * An interactive shell - initially created with {@link eu.chainfire.libsuperuser.Shell.Builder} -
      * that executes blocks of commands you supply in the background, optionally
      * calling callbacks as each block completes.
      * </p>
@@ -923,18 +927,18 @@ public class Shell {
      * so a deadlock does not occur if the shell produces massive output, the
      * output is still stored in a List&lt;String&gt;, and as such doing
      * something like <em>'ls -lR /'</em> will probably have you run out of
-     * memory when using a {@link Shell.OnCommandResultListener}. A work-around
+     * memory when using a {@link eu.chainfire.libsuperuser.Shell.OnCommandResultListener}. A work-around
      * is to not supply this callback, but using (only)
-     * {@link Shell.Builder#setOnSTDOUTLineListener(OnLineListener)}. This way,
+     * {@link eu.chainfire.libsuperuser.Shell.Builder#setOnSTDOUTLineListener(OnLineListener)}. This way,
      * an internal buffer will not be created and wasting your memory.
      * </p>
      * <h3>Callbacks, threads and handlers</h3>
      * <p>
      * On which thread the callbacks execute is dependent on your
      * initialization. You can supply a custom Handler using
-     * {@link Shell.Builder#setHandler(Handler)} if needed. If you do not supply
+     * {@link eu.chainfire.libsuperuser.Shell.Builder#setHandler(android.os.Handler)} if needed. If you do not supply
      * a custom Handler - unless you set
-     * {@link Shell.Builder#setAutoHandler(boolean)} to false - a Handler will
+     * {@link eu.chainfire.libsuperuser.Shell.Builder#setAutoHandler(boolean)} to false - a Handler will
      * be auto-created if the thread used for instantiation of the object has a
      * Looper.
      * </p>
@@ -947,7 +951,7 @@ public class Shell {
      * </p>
      * <p>
      * The main thread must certainly have a Looper, thus if you call
-     * {@link Shell.Builder#open()} from the main thread, a handler will (by
+     * {@link eu.chainfire.libsuperuser.Shell.Builder#open()} from the main thread, a handler will (by
      * default) be auto-created, and all the callbacks will be called on the
      * main thread. While this is often convenient and easy to code with, you
      * should be aware that if your callbacks are 'expensive' to execute, this
@@ -955,7 +959,7 @@ public class Shell {
      * </p>
      * <p>
      * Background threads usually do <em>not</em> have a Looper, so calling
-     * {@link Shell.Builder#open()} from such a background thread will (by
+     * {@link eu.chainfire.libsuperuser.Shell.Builder#open()} from such a background thread will (by
      * default) result in all the callbacks being executed in one of the gobbler
      * threads. You will have to make sure the code you execute in these
      * callbacks is thread-safe.
@@ -1035,7 +1039,7 @@ public class Shell {
             addCommand(Shell.availableTestCommands, 0, new OnCommandResultListener() {
                 public void onCommandResult(int commandCode, int exitCode, List<String> output) {
                     if (exitCode == OnCommandResultListener.SHELL_RUNNING &&
-                            Shell.parseAvailableResult(output, Shell.SU.isSU(shell)) != true) {
+                            Shell.parseAvailableResult(output, SU.isSU(shell)) != true) {
                         // shell is up, but it's brain-damaged
                         exitCode = OnCommandResultListener.SHELL_WRONG_UID;
                     }
@@ -1070,7 +1074,7 @@ public class Shell {
          * </p>
          * <p>
          * The thread on which the callback executes is dependent on various
-         * factors, see {@link Shell.Interactive} for further details
+         * factors, see {@link eu.chainfire.libsuperuser.Shell.Interactive} for further details
          * </p>
          * 
          * @param command Command to execute
@@ -1092,7 +1096,7 @@ public class Shell {
          * </p>
          * <p>
          * The thread on which the callback executes is dependent on various
-         * factors, see {@link Shell.Interactive} for further details
+         * factors, see {@link eu.chainfire.libsuperuser.Shell.Interactive} for further details
          * </p>
          * 
          * @param command Command to execute
@@ -1121,7 +1125,7 @@ public class Shell {
          * </p>
          * <p>
          * The thread on which the callback executes is dependent on various
-         * factors, see {@link Shell.Interactive} for further details
+         * factors, see {@link eu.chainfire.libsuperuser.Shell.Interactive} for further details
          * </p>
          * 
          * @param commands Commands to execute
@@ -1142,7 +1146,7 @@ public class Shell {
          * </p>
          * <p>
          * The thread on which the callback executes is dependent on various
-         * factors, see {@link Shell.Interactive} for further details
+         * factors, see {@link eu.chainfire.libsuperuser.Shell.Interactive} for further details
          * </p>
          * 
          * @param commands Commands to execute
@@ -1170,7 +1174,7 @@ public class Shell {
          * </p>
          * <p>
          * The thread on which the callback executes is dependent on various
-         * factors, see {@link Shell.Interactive} for further details
+         * factors, see {@link eu.chainfire.libsuperuser.Shell.Interactive} for further details
          * </p>
          * 
          * @param commands Commands to execute
@@ -1192,7 +1196,7 @@ public class Shell {
          * </p>
          * <p>
          * The thread on which the callback executes is dependent on various
-         * factors, see {@link Shell.Interactive} for further details
+         * factors, see {@link eu.chainfire.libsuperuser.Shell.Interactive} for further details
          * </p>
          * 
          * @param commands Commands to execute
@@ -1450,7 +1454,7 @@ public class Shell {
 
         /**
          * Internal call that launches the shell, starts gobbling, and starts
-         * executing commands. See {@link Shell.Interactive}
+         * executing commands. See {@link eu.chainfire.libsuperuser.Shell.Interactive}
          * 
          * @return Opened successfully ?
          */
@@ -1672,7 +1676,7 @@ public class Shell {
          * on this behavior, you should make certain this is indeed the case.
          * </p>
          * <p>
-         * See {@link Shell.Interactive} for further details on threading and
+         * See {@link eu.chainfire.libsuperuser.Shell.Interactive} for further details on threading and
          * handlers
          * </p>
          * 

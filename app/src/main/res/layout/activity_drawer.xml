@@ -21,9 +21,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_add"
+            android:src="@drawable/ic_action_content_new"
             app:fab_colorNormal="@color/cabinet_accent_color"
-            app:fab_colorPressed="@color/cabinet_accent_color_darker" />
+            app:fab_colorPressed="@color/cabinet_accent_color_darker"
+            app:fab_colorRipple="@color/cabinet_accent_color_lighter"/>
 
     </FrameLayout>
 

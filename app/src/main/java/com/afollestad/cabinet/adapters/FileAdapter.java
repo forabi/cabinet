@@ -49,6 +49,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FileViewHolder
         mMenuListener = menuListener;
         mShowDirs = showDirectories;
         checkedPaths = new ArrayList<String>();
+        gridMode = Utils.getGridColumn(context) > 1;
     }
 
     @Override
@@ -140,6 +141,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FileViewHolder
     private boolean mShowDirs;
     private List<String> checkedPaths;
     public boolean showLastModified;
+    private boolean gridMode;
 
     public void add(File file) {
         mFiles.add(file);
@@ -178,13 +180,19 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.FileViewHolder
         notifyDataSetChanged();
     }
 
+    public void invalidateGridMode() {
+        gridMode = Utils.getGridColumn(mContext) > 1;
+        notifyDataSetChanged();
+    }
+
     public List<File> getFiles() {
         return mFiles;
     }
 
     @Override
     public FileViewHolder onCreateViewHolder(ViewGroup parent, int index) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_file, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(gridMode ?
+                R.layout.list_item_file_grid : R.layout.list_item_file, parent, false);
         if (mShowDirs) v.findViewById(R.id.directory).setVisibility(View.VISIBLE);
         return new FileViewHolder(v);
     }

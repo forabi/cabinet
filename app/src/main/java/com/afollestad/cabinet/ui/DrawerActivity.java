@@ -1,6 +1,5 @@
 package com.afollestad.cabinet.ui;
 
-import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -13,11 +12,8 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
 import com.afollestad.cabinet.R;
@@ -32,8 +28,8 @@ import com.afollestad.cabinet.fragments.WelcomeFragment;
 import com.afollestad.cabinet.ui.base.NetworkedActivity;
 import com.afollestad.cabinet.utils.Pins;
 import com.anjlab.android.iab.v3.BillingProcessor;
+import com.anjlab.android.iab.v3.TransactionDetails;
 import com.melnykov.fab.FloatingActionButton;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class DrawerActivity extends NetworkedActivity implements BillingProcessor.IBillingHandler {
 
@@ -42,23 +38,15 @@ public class DrawerActivity extends NetworkedActivity implements BillingProcesso
     }
 
     private BillingProcessor mBP; // used for donations
-    private boolean canExit; // flag used for press back twice to exit
     private BaseCab mCab; // the current contextual action bar, saves state throughout fragments
 
     public FloatingActionButton fab; // the floating blue add/paste button
-    private float fabVisibleY; // saves y position of the top of the visible fab
-    private float fabHiddenY; // saves y position of the top of the hidden fab
-    private boolean fabShown = true; // flag indicating whether the fab is currently visible
     private FabListener mFabListener; // a callback used to notify DirectoryFragment of fab press
     public BaseFileCab.PasteMode fabPasteMode = BaseFileCab.PasteMode.DISABLED;
     private boolean fabDisabled; // flag indicating whether fab should stay hidden while scrolling
     public boolean shouldAttachFab; // used during config change, tells fragment to reattach to cab
     public boolean pickMode; // flag indicating whether user is picking a file for another app
     public DrawerLayout mDrawerLayout;
-
-    // Both fields used in waitFabInvalidate() so that they can be initialized on UI thread
-    private SystemBarTintManager mTintManager;
-    SystemBarTintManager.SystemBarConfig mTintConfig;
 
     public BaseCab getCab() {
         return mCab;
@@ -68,67 +56,19 @@ public class DrawerActivity extends NetworkedActivity implements BillingProcesso
         mCab = cab;
     }
 
-    public void invalidateSystemBarTintManager() {
-        if (mTintManager == null)
-            mTintManager = new SystemBarTintManager(DrawerActivity.this);
-        if (mTintConfig == null)
-            mTintConfig = mTintManager.getConfig();
-    }
-
-    public void waitFabInvalidate() {
-        if (mTintManager == null || mTintConfig == null)
-            throw new RuntimeException("Tint manager and config have not be initialized yet.");
-        final float translation = getResources().getDimension(R.dimen.fab_translation) + mTintConfig.getPixelInsetBottom();
-        while (fabVisibleY == 0) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    fabVisibleY = fab.getY();
-                    fabHiddenY = fab.getY() + translation;
-                }
-            });
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        // Make sure memory is released
-        mTintManager = null;
-        mTintConfig = null;
-    }
-
     public void toggleFab(boolean hide) {
-        if (fabVisibleY == 0) {
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
-            float translation = getResources().getDimension(R.dimen.fab_translation) + config.getPixelInsetBottom();
-            fabVisibleY = fab.getY();
-            fabHiddenY = fab.getY() + translation;
-            Log.v("Fab", "Invalidate position– top: " + fabVisibleY + ", bottom: " + fabHiddenY);
-        }
-        if (hide) {
-            if (fabShown) {
-                ObjectAnimator outAnim = ObjectAnimator.ofFloat(fab, "y", fabVisibleY, fabHiddenY);
-                outAnim.setDuration(250);
-                outAnim.setInterpolator(new AccelerateInterpolator());
-                outAnim.start();
-                fabShown = false;
-            }
-        } else {
-            if (!fabShown && !fabDisabled) {
-                ObjectAnimator inAnim = ObjectAnimator.ofFloat(fab, "y", fabHiddenY, fabVisibleY);
-                inAnim.setDuration(250);
-                inAnim.setInterpolator(new DecelerateInterpolator());
-                inAnim.start();
-                fabShown = true;
-            }
-        }
+        if (fabDisabled) fab.hide(false);
+        else if (hide) fab.hide(true);
+        else fab.show(true);
     }
 
     public void disableFab(boolean disable) {
+        if (!disable) {
+            fab.show(true);
+        } else {
+            fab.hide(true);
+        }
         fabDisabled = disable;
-        toggleFab(disable);
     }
 
     public void setFabListener(FabListener mFabListener) {
@@ -142,6 +82,13 @@ public class DrawerActivity extends NetworkedActivity implements BillingProcesso
         outState.putSerializable("fab_pastemode", fabPasteMode);
         outState.putBoolean("fab_disabled", fabDisabled);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
+            super.onBackPressed();
+        } else getFragmentManager().popBackStack();
     }
 
     @Override
@@ -262,7 +209,6 @@ public class DrawerActivity extends NetworkedActivity implements BillingProcesso
 
     public void switchDirectory(File to, boolean clearBackStack, boolean animate) {
         if (to == null) to = new LocalFile(this, Environment.getExternalStorageDirectory());
-        canExit = false;
         if (clearBackStack)
             getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         FragmentTransaction trans = getFragmentManager().beginTransaction();
@@ -302,17 +248,6 @@ public class DrawerActivity extends NetworkedActivity implements BillingProcesso
         return super.onKeyLongPress(keyCode, event);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() == 0) {
-            if (canExit) super.onBackPressed();
-            else {
-                canExit = true;
-                Toast.makeText(getApplicationContext(), R.string.press_back_to_exit, Toast.LENGTH_SHORT).show();
-            }
-        } else getFragmentManager().popBackStack();
-    }
-
     /* Donation stuff via in app billing */
 
     @Override
@@ -320,7 +255,7 @@ public class DrawerActivity extends NetworkedActivity implements BillingProcesso
     }
 
     @Override
-    public void onProductPurchased(String productId) {
+    public void onProductPurchased(String productId, TransactionDetails transactionDetails) {
         mBP.consumePurchase(productId);
         Toast.makeText(this, R.string.thank_you, Toast.LENGTH_SHORT).show();
     }

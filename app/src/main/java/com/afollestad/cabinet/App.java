@@ -26,8 +26,6 @@ public class App extends Application {
         if (fallback == 0) fallback = R.drawable.ic_file_image;
         return new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
                 .showImageForEmptyUri(fallback)
                 .showImageOnFail(fallback)
                 .cacheInMemory(true)

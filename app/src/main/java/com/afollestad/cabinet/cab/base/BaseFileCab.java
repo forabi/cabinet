@@ -73,7 +73,7 @@ public abstract class BaseFileCab extends BaseCab {
             } else Log.v("Fab", "Paste mode not available");
         }
         getContext().disableFab(hide);
-        getContext().fab.setImageResource(canPaste() == BaseFileCab.PasteMode.ENABLED ? R.drawable.ic_paste : R.drawable.ic_add);
+        getContext().fab.setImageResource(canPaste() == BaseFileCab.PasteMode.ENABLED ? R.drawable.ic_paste : R.drawable.ic_action_content_new);
         return this;
     }
 
@@ -185,7 +185,7 @@ public abstract class BaseFileCab extends BaseCab {
             getFragment().mAdapter.resetChecked();
             if (canPaste() == PasteMode.ENABLED) {
                 getContext().fabPasteMode = PasteMode.DISABLED;
-                getContext().fab.setImageResource(R.drawable.ic_add);
+                getContext().fab.setImageResource(R.drawable.ic_action_content_new);
             }
         }
         if (!canShowFab()) getContext().disableFab(false);

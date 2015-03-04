@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/delete"
+        android:title="@string/delete"
+        android:icon="@drawable/ic_delete"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/copy"
         android:title="@string/copy"
         android:icon="@drawable/ic_copy"
@@ -13,17 +18,18 @@
         android:icon="@drawable/ic_cut"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/delete"
-        android:title="@string/delete"
-        android:icon="@drawable/ic_delete"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/selectAll"
         android:title="@string/selectAll"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_selectall"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/share"
         android:title="@string/share"
+        android:icon="@drawable/ic_share"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/pin"
+        android:title="@string/pin"
         app:showAsAction="never" />
     <item
         android:id="@+id/zip"

@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:background="@color/cabinet_color"
-            android:textColor="#fff"
+            android:textColor="@android:color/white"
             android:textSize="17sp"
             android:gravity="center_vertical"
             android:paddingTop="8dp"

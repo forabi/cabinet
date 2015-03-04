@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="nav_drawer_width">320dp</dimen>
+    <dimen name="nav_drawer_item_vert_pad">24sp</dimen>
+
+</resources>
